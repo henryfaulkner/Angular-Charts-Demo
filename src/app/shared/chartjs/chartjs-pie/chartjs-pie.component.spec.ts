@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BarComponent } from './bar.component';
+import { ChartjsPieComponent } from './chartjs-pie.component';
 
-describe('BarComponent', () => {
-  let component: BarComponent;
-  let fixture: ComponentFixture<BarComponent>;
+describe('ChartjsPieComponent', () => {
+  let component: ChartjsPieComponent;
+  let fixture: ComponentFixture<ChartjsPieComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BarComponent ]
+      declarations: [ ChartjsPieComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(BarComponent);
+    fixture = TestBed.createComponent(ChartjsPieComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

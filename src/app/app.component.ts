@@ -1,10 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
-  title = 'Angular D3js Demo';
+export class AppComponent implements OnInit {
+  title = 'Angular Charts Demo';
+
+  constructor() {}
+
+  ngOnInit() {}
 }

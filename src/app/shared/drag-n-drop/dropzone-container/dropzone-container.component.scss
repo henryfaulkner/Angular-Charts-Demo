@@ -1,0 +1,17 @@
+.dropzone-container {
+    border: 3px dashed grey;
+    width: inherit;
+    height: 200px;
+}
+
+ul {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+li {
+    list-style: none;
+}

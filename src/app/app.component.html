@@ -1,6 +1,11 @@
-<header>
-  <h1>Angular + Chart.js</h1>
-</header>
-<app-chartjs-bar></app-chartjs-bar>
-<app-chartjs-pie></app-chartjs-pie>
-<app-chartjs-scatter></app-chartjs-scatter>
+<div id="container">
+  <div id="content" cdkDropListGroup>
+    <div id="content-sidebar">
+      <app-sidebar-container></app-sidebar-container>
+    </div>
+
+    <div id="content-content">
+      <app-dropzone-container></app-dropzone-container>
+    </div>  
+  </div>
+</div>

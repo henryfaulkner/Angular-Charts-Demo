@@ -1,5 +1,9 @@
 <div class="dropzone-container">
-    <ul cdkDropList [cdkDropListData]="photos" (cdkDropListDropped)="drop($event)">
+    <ul 
+        cdkDropList 
+        [cdkDropListData]="photos" 
+        (cdkDropListDropped)="drop($event)"
+    >
         <li *ngFor="let photo of photos" cdkDrag>
             <img [src]="photo.thumbnailUrl" width="60" />
         </li>

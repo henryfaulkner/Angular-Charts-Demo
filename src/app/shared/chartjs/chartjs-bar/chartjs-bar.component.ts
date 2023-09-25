@@ -1,18 +1,18 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { WeatherDataService } from 'src/app/core/services/weather-data.service';
-import { Region } from 'src/app/core/types/region.type';
+import { Component, Input, OnChanges, ViewChild } from '@angular/core';
 
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
-import { Area } from 'src/app/core/types/area.type';
+import { ChartDatasetVectorAndLabel } from 'src/app/core/types/chart-dataset-vector-and-label.type';
 
 @Component({
   selector: 'app-chartjs-bar',
   templateUrl: './chartjs-bar.component.html',
   styleUrls: ['./chartjs-bar.component.scss'],
 })
-export class ChartjsBarComponent implements OnInit {
+export class ChartjsBarComponent implements OnChanges {
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
+  @Input() labels: string[] = [];
+  @Input() datasets: ChartDatasetVectorAndLabel[] = [];
 
   barChartOptions: ChartConfiguration['options'] = {
     responsive: true,
@@ -33,18 +33,12 @@ export class ChartjsBarComponent implements OnInit {
   barChartType: ChartType = 'bar';
   barChartData: ChartData<'bar'> = { labels: [], datasets: [] };
 
-  constructor(private wds: WeatherDataService) {}
-
-  async ngOnInit(): Promise<void> {
-    const regionData: Region[] =
-      await this.wds.getActiveAlertCountForAllRegions();
-    const areaData: Area[] = await this.wds.getActiveAlertCountForAllAreas();
-    const labels: string[] = regionData.map((x) => x.regionCode);
-    const regionDataset: number[] = regionData.map((x) => x.regionCount);
-    const areaDataset: number[] = areaData.map((x) => x.areaCount);
+  ngOnChanges() {
+    const labels = this.labels;
+    const datasets = this.datasets;
     this.barChartData = {
       labels,
-      datasets: [{ data: regionDataset, label: 'Region Dataset' }],
+      datasets: datasets,
     };
   }
 }

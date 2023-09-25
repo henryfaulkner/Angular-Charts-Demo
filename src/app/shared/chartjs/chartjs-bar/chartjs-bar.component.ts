@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, ViewChild } from '@angular/core';
-
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
+import DatalabelsPlugin from 'chartjs-plugin-datalabels';
 import { BaseChartDirective } from 'ng2-charts';
 import { ChartDatasetVectorAndLabel } from 'src/app/core/types/chart-dataset-vector-and-label.type';
 
@@ -16,8 +16,6 @@ export class ChartjsBarComponent implements OnChanges {
 
   barChartOptions: ChartConfiguration['options'] = {
     responsive: true,
-    // We use these empty structures as placeholders for dynamic theming.
-
     scales: {
       x: {},
       y: {
@@ -28,17 +26,27 @@ export class ChartjsBarComponent implements OnChanges {
       legend: {
         display: true,
       },
+      datalabels: {
+        anchor: 'end',
+        align: 'end',
+      },
     },
   };
   barChartType: ChartType = 'bar';
-  barChartData: ChartData<'bar'> = { labels: [], datasets: [] };
+  barChartData: ChartData<'bar'> = {
+    labels: [],
+    datasets: [],
+  };
+  barChartPlugins = [DatalabelsPlugin];
 
   ngOnChanges() {
+    console.log(this.labels);
+    console.log(this.datasets);
     const labels = this.labels;
     const datasets = this.datasets;
     this.barChartData = {
       labels,
-      datasets: datasets,
+      datasets,
     };
   }
 }

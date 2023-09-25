@@ -1,15 +1,18 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnChanges, ViewChild } from '@angular/core';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
+import DatalabelsPlugin from 'chartjs-plugin-datalabels';
 import { BaseChartDirective } from 'ng2-charts';
-import { WeatherDataService } from 'src/app/core/services/weather-data.service';
+import { ChartDatasetVectorAndLabel } from 'src/app/core/types/chart-dataset-vector-and-label.type';
 
 @Component({
   selector: 'app-chartjs-pie',
   templateUrl: './chartjs-pie.component.html',
   styleUrls: ['./chartjs-pie.component.scss'],
 })
-export class ChartjsPieComponent implements OnInit {
+export class ChartjsPieComponent implements OnChanges {
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
+  @Input() labels: string[] = [];
+  @Input() datasets: ChartDatasetVectorAndLabel[] = [];
 
   pieChartOptions: ChartConfiguration['options'] = {
     responsive: true,
@@ -18,15 +21,28 @@ export class ChartjsPieComponent implements OnInit {
         display: true,
         position: 'top',
       },
+      datalabels: {
+        formatter: (value: any, ctx: any) => {
+          if (ctx.chart.data.labels) {
+            return ctx.chart.data.labels[ctx.dataIndex];
+          }
+        },
+      },
     },
   };
-  public pieChartData: ChartData<'pie', number[], string | string[]> = {
+  pieChartType: ChartType = 'pie';
+  pieChartData: ChartData<'pie', number[], string | string[]> = {
     labels: [],
     datasets: [],
   };
-  public pieChartType: ChartType = 'pie';
+  pieChartPlugins = [DatalabelsPlugin];
 
-  constructor(private wds: WeatherDataService) {}
-
-  ngOnInit(): void {}
+  ngOnChanges(): void {
+    const labels = this.labels;
+    const datasets = this.datasets;
+    this.pieChartData = {
+      labels,
+      datasets,
+    };
+  }
 }

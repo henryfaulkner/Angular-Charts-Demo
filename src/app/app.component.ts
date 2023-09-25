@@ -1,9 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { WeatherDataService } from './core/services/weather-data.service';
 import { Area } from './core/types/area.type';
 import { ChartDatasetVectorAndLabel } from './core/types/chart-dataset-vector-and-label.type';
-import { Photo } from './core/types/photo.type';
 import { Region } from './core/types/region.type';
 
 @Component({
@@ -14,12 +12,12 @@ import { Region } from './core/types/region.type';
 export class AppComponent implements OnInit {
   title = 'Angular Charts Demo';
 
-  barChartLabels: string[] = [];
-  barChartDatasets: ChartDatasetVectorAndLabel[] = [];
+  regionChartLabels: string[] = [];
+  regionChartDatasets: ChartDatasetVectorAndLabel[] = [];
+  areaChartLabels: string[] = [];
+  areaChartDatasets: ChartDatasetVectorAndLabel[] = [];
 
-  photos: Photo[] = [];
-
-  constructor(private wds: WeatherDataService, private http: HttpClient) {}
+  constructor(private wds: WeatherDataService) {}
 
   async ngOnInit() {
     const regionData: Region[] =
@@ -30,9 +28,14 @@ export class AppComponent implements OnInit {
     const areaLabels: string[] = areaData.map((x) => x.areaCode);
     const areaDatasetVector: number[] = areaData.map((x) => x.areaCount);
 
-    this.barChartLabels = regionLabels;
-    this.barChartDatasets = [
+    this.regionChartLabels = regionLabels;
+    this.regionChartDatasets = [
       { data: regionDatasetVector, label: 'Region Alert Counts' },
+    ];
+
+    this.areaChartLabels = areaLabels;
+    this.areaChartDatasets = [
+      { data: areaDatasetVector, label: 'Area Alert Counts' },
     ];
   }
 }

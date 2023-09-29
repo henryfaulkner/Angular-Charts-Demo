@@ -11,6 +11,7 @@ import { DropzoneContainerComponent } from './shared/drag-n-drop/photos/dropzone
 import { SidebarContainerComponent } from './shared/drag-n-drop/photos/sidebar-container/sidebar-container.component';
 import { ChartjsGridComponent } from './shared/drag-n-drop/charts/chartjs-grid/chartjs-grid.component';
 import { DragDropGridComponent } from './shared/drag-n-drop/drag-drop-grid/drag-drop-grid.component';
+import { DragDropGridCheckboxDropdownComponent } from './shared/drag-n-drop/drag-drop-grid-checkbox-dropdown/drag-drop-grid-checkbox-dropdown.component';
 
 const components = [
   AppComponent,
@@ -29,7 +30,7 @@ const modules = [
 ];
 
 @NgModule({
-  declarations: [...components, ChartjsGridComponent, DragDropGridComponent],
+  declarations: [...components, ChartjsGridComponent, DragDropGridComponent, DragDropGridCheckboxDropdownComponent],
   imports: [...modules],
   providers: [...components, ...modules],
   bootstrap: [AppComponent],

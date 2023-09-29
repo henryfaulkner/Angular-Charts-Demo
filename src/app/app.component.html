@@ -16,6 +16,12 @@
   </div>
 
   <div id="w-grid">
-    <app-drag-drop-grid [labels]="regionChartLabels" [datasets]="regionChartDatasets" ></app-drag-drop-grid>
+    <app-drag-drop-grid 
+      [items]="gridItems" 
+      [barLabels]="areaChartLabels"
+      [barDatasets]="areaChartDatasets"
+      [pieLabels]="regionChartLabels" 
+      [pieDatasets]="regionChartDatasets" 
+    ></app-drag-drop-grid>
   </div>
 </div>

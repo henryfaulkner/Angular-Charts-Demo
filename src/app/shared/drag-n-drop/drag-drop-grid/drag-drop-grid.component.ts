@@ -9,6 +9,7 @@ import { ViewportRuler } from '@angular/cdk/overlay';
 import { Component, Input, ViewChild } from '@angular/core';
 import { ChartComponentProps } from 'src/app/core/types/chart-component-props.type';
 import { ChartDatasetVectorAndLabel } from 'src/app/core/types/chart-dataset-vector-and-label.type';
+import { handleExpandReduceChartData } from 'src/app/core/ui-helpers/handle-expand-reduce-chart-data.func';
 
 @Component({
   selector: 'app-drag-drop-grid',
@@ -16,32 +17,23 @@ import { ChartDatasetVectorAndLabel } from 'src/app/core/types/chart-dataset-vec
   styleUrls: ['./drag-drop-grid.component.scss'],
 })
 export class DragDropGridComponent {
-  @Input() labels: string[] = [];
-  @Input() datasets: ChartDatasetVectorAndLabel[] = [];
-
-  @ViewChild(CdkDropListGroup) listGroup: CdkDropListGroup<CdkDropList> | null;
-  @ViewChild(CdkDropList) placeholder: CdkDropList | null;
-
-  // Array to store chart items
-  public items: ChartComponentProps[] = [
-    { id: '1', type: 'bar', labels: this.labels, datasets: this.datasets },
-    { id: '2', type: 'bar', labels: this.labels, datasets: this.datasets },
-    { id: '3', type: 'bar', labels: this.labels, datasets: this.datasets },
-    { id: '4', type: 'bar', labels: this.labels, datasets: this.datasets },
-    { id: '5', type: 'pie', labels: this.labels, datasets: this.datasets },
-    { id: '6', type: 'bar', labels: this.labels, datasets: this.datasets },
-    { id: '7', type: 'pie', labels: this.labels, datasets: this.datasets },
-    { id: '8', type: 'pie', labels: this.labels, datasets: this.datasets },
-    { id: '9', type: 'pie', labels: this.labels, datasets: this.datasets },
-  ];
+  // Variables for charting
+  @Input() items: ChartComponentProps[] = [];
+  @Input() barLabels: string[] = [];
+  @Input() barDatasets: ChartDatasetVectorAndLabel[] = [];
+  @Input() pieLabels: string[] = [];
+  @Input() pieDatasets: ChartDatasetVectorAndLabel[] = [];
 
   // Variables for tracking drag and drop actions
+  @ViewChild(CdkDropListGroup) listGroup: CdkDropListGroup<CdkDropList> | null;
+  @ViewChild(CdkDropList) placeholder: CdkDropList | null;
   public target: CdkDropList | null;
   public targetIndex: number;
   public source: CdkDropList | null;
   public sourceIndex: number;
   public dragIndex: number;
   public activeContainer: any;
+  isDraggable = true;
 
   constructor(private viewportRuler: ViewportRuler) {
     this.listGroup = null;
@@ -67,13 +59,21 @@ export class DragDropGridComponent {
     phElement.parentElement.removeChild(phElement);
   }
 
+  //#region CONTROLS region
+
   // Method to add a bar chart item
   addBarChart() {
     this.items.push({
       id: (this.items.length + 1).toString(),
+      title: (this.items.length + 1).toString(),
       type: 'bar',
-      labels: this.labels,
-      datasets: this.datasets,
+      labels: this.barLabels,
+      displayLabels: this.barLabels,
+      datasets: this.barDatasets,
+      displayDatasets: this.barDatasets,
+      selected: true,
+      expanded: false,
+      handleExpandSelection: handleExpandReduceChartData,
     });
   }
 
@@ -81,9 +81,15 @@ export class DragDropGridComponent {
   addPieChart() {
     this.items.push({
       id: (this.items.length + 1).toString(),
-      type: 'bar',
-      labels: this.labels,
-      datasets: this.datasets,
+      title: (this.items.length + 1).toString(),
+      type: 'pie',
+      labels: this.pieLabels,
+      displayLabels: this.pieLabels,
+      datasets: this.pieDatasets,
+      displayDatasets: this.pieDatasets,
+      selected: true,
+      expanded: false,
+      handleExpandSelection: (item: ChartComponentProps) => {},
     });
   }
 
@@ -93,6 +99,31 @@ export class DragDropGridComponent {
       return 0.5 - Math.random();
     });
   }
+
+  // Method to update hidden / displayed charts
+  handleDropdownSelection(selectedItem: ChartComponentProps) {
+    this.items = this.items.map((item: ChartComponentProps) => {
+      if (item.id === selectedItem.id) return selectedItem;
+      else return item;
+    });
+  }
+
+  handleExpandSelection(item: ChartComponentProps) {
+    item.expanded = !item.expanded;
+    item.handleExpandSelection(item);
+  }
+
+  expandData() {}
+
+  reduceData() {}
+
+  toggleDraggability() {
+    this.isDraggable = !this.isDraggable;
+  }
+
+  //#endregion
+
+  //#region DRAG AND DROP region
 
   // Method called during a drag operation
   dragMoved(e: CdkDragMove) {
@@ -197,6 +228,8 @@ export class DragDropGridComponent {
       y: point.pageY - scrollPosition.top,
     };
   }
+
+  //#endregion
 }
 
 // Utility function to find the index of an element in a collection

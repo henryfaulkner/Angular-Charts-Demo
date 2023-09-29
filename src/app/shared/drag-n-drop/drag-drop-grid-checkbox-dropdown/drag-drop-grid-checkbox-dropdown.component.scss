@@ -1,0 +1,19 @@
+@import "../../../../assets/styles/utility/utility";
+
+.toggle-box {
+    cursor: pointer;
+    border: 1px solid black;
+    border-radius: 3px;
+    width: fit-content;
+}
+
+.list-box {
+    position: absolute;
+    z-index: 10;
+    min-width: 100px;
+    background-color: $soft-white; 
+}
+
+li {
+    list-style: none;
+}

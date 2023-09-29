@@ -1,0 +1,16 @@
+<div class="app-drag-drop-grid-checkbox-dropdown">
+    <div class="toggle-box" (click)="toggleOpen()">
+        <span>Toggle Graphs</span>
+    </div>
+
+    <div class="list-box" *ngIf="isOpen">
+        <ul>
+            <ng-container *ngFor="let item of items">
+                <li>
+                    <input type="checkbox" [name]="item.title" [id]="item.id" [checked]="item.selected" (change)="changeSelection(item)" >
+                    <label [for]="item.id">{{item.title}}</label>
+                </li>
+            </ng-container>
+        </ul>
+    </div>
+</div>

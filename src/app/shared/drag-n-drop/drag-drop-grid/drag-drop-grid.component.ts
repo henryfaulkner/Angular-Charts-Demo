@@ -8,6 +8,7 @@ import {
 import {ViewportRuler} from "@angular/cdk/overlay";
 import { debounce, throttle } from 'lodash';
 import { ChartDatasetVectorAndLabel } from 'src/app/core/types/chart-dataset-vector-and-label.type';
+import { ChartComponentProps } from 'src/app/core/types/chart-component-props.type';
 
 @Component({
   selector: 'app-drag-drop-grid',
@@ -21,7 +22,17 @@ export class DragDropGridComponent {
     @ViewChild(CdkDropListGroup) listGroup: CdkDropListGroup<CdkDropList> | null;
     @ViewChild(CdkDropList) placeholder: CdkDropList | null;
   
-    public items: Array<number> = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    public items: ChartComponentProps[] = [
+      { id: '1', type: 'bar', labels: this.labels, datasets: this.datasets},  
+      { id: '2', type: 'bar', labels: this.labels, datasets: this.datasets},  
+      { id: '3', type: 'bar', labels: this.labels, datasets: this.datasets},  
+      { id: '4', type: 'bar', labels: this.labels, datasets: this.datasets},  
+      { id: '5', type: 'pie', labels: this.labels, datasets: this.datasets},  
+      { id: '6', type: 'bar', labels: this.labels, datasets: this.datasets},  
+      { id: '7', type: 'pie', labels: this.labels, datasets: this.datasets},  
+      { id: '8', type: 'pie', labels: this.labels, datasets: this.datasets},  
+      { id: '9', type: 'pie', labels: this.labels, datasets: this.datasets},  
+    ];
   
     public target: CdkDropList | null;
     public targetIndex: number;
@@ -56,8 +67,12 @@ export class DragDropGridComponent {
       phElement.parentElement.removeChild(phElement);
     }
   
-    add() {
-      this.items.push(this.items.length + 1);
+    addBarChart() {
+      this.items.push({ id: (this.items.length + 1).toString(), type: 'bar', labels: this.labels, datasets: this.datasets });
+    }
+
+    addPieChart() {
+      this.items.push({ id: (this.items.length + 1).toString(), type: 'bar', labels: this.labels, datasets: this.datasets });
     }
   
     shuffle() {

@@ -10,6 +10,7 @@ import { ChartjsScatterComponent } from './shared/chartjs/chartjs-scatter/chartj
 import { DropzoneContainerComponent } from './shared/drag-n-drop/photos/dropzone-container/dropzone-container.component';
 import { SidebarContainerComponent } from './shared/drag-n-drop/photos/sidebar-container/sidebar-container.component';
 import { ChartjsGridComponent } from './shared/drag-n-drop/charts/chartjs-grid/chartjs-grid.component';
+import { DragDropGridComponent } from './shared/drag-n-drop/drag-drop-grid/drag-drop-grid.component';
 
 const components = [
   AppComponent,
@@ -18,6 +19,7 @@ const components = [
   ChartjsScatterComponent,
   SidebarContainerComponent,
   DropzoneContainerComponent,
+  DragDropGridComponent
 ];
 const modules = [
   BrowserModule,
@@ -27,7 +29,7 @@ const modules = [
 ];
 
 @NgModule({
-  declarations: [...components, ChartjsGridComponent],
+  declarations: [...components, ChartjsGridComponent, DragDropGridComponent],
   imports: [...modules],
   providers: [...components, ...modules],
   bootstrap: [AppComponent],

@@ -1,0 +1,24 @@
+<div>
+    <h1>Drag&Drop with a flex-wrap</h1>
+
+    <button (click)="addBarChart()">Add Bar</button> <button (click)="addPieChart()">Add Pie</button> <button (click)="shuffle()">Shuffle</button><br/>
+    <ul class="example-list"><li *ngFor="let item of items">{{ item.id }}</li></ul>
+
+    <div class="example-container" cdkDropListGroup>
+        <div cdkDropList [cdkDropListEnterPredicate]="dropListEnterPredicate" (cdkDropListDropped)="dropListDropped($event)"></div>
+        <div cdkDropList *ngFor="let item of items; let i = index"
+            [cdkDropListEnterPredicate]="dropListEnterPredicate" (cdkDropListDropped)="dropListDropped($event)"
+        >
+            <div cdkDrag class="example-box" (cdkDragMoved)="dragMoved($event);">
+                <app-chartjs-pie *ngIf="item.type === 'pie'" [labels]="labels" [datasets]="datasets"></app-chartjs-pie>
+                <app-chartjs-bar *ngIf="item.type === 'bar'" [labels]="labels" [datasets]="datasets"></app-chartjs-bar>
+                <div class="example-handle" cdkDragHandle>
+                    <svg width="24px" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"></path>
+                      <path d="M0 0h24v24H0z" fill="none"></path>
+                    </svg>
+                  </div>
+            </div>
+        </div>
+    </div>
+</div> 

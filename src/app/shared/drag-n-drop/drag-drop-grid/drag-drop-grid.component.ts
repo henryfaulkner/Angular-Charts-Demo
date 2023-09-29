@@ -1,22 +1,19 @@
-import { Component, NgModule, ViewChild, Input } from '@angular/core';
 import {
   CdkDrag,
-  CdkDragStart,
+  CdkDragMove,
   CdkDropList,
   CdkDropListGroup,
-  CdkDragMove,
-  CdkDragEnter,
-  moveItemInArray
-} from "@angular/cdk/drag-drop";
-import { ViewportRuler } from "@angular/cdk/overlay";
-import { debounce, throttle } from 'lodash';
-import { ChartDatasetVectorAndLabel } from 'src/app/core/types/chart-dataset-vector-and-label.type';
+  moveItemInArray,
+} from '@angular/cdk/drag-drop';
+import { ViewportRuler } from '@angular/cdk/overlay';
+import { Component, Input, ViewChild } from '@angular/core';
 import { ChartComponentProps } from 'src/app/core/types/chart-component-props.type';
+import { ChartDatasetVectorAndLabel } from 'src/app/core/types/chart-dataset-vector-and-label.type';
 
 @Component({
   selector: 'app-drag-drop-grid',
   templateUrl: './drag-drop-grid.component.html',
-  styleUrls: ['./drag-drop-grid.component.scss']
+  styleUrls: ['./drag-drop-grid.component.scss'],
 })
 export class DragDropGridComponent {
   @Input() labels: string[] = [];
@@ -27,15 +24,15 @@ export class DragDropGridComponent {
 
   // Array to store chart items
   public items: ChartComponentProps[] = [
-    { id: '1', type: 'bar', labels: this.labels, datasets: this.datasets},  
-    { id: '2', type: 'bar', labels: this.labels, datasets: this.datasets},  
-    { id: '3', type: 'bar', labels: this.labels, datasets: this.datasets},  
-    { id: '4', type: 'bar', labels: this.labels, datasets: this.datasets},  
-    { id: '5', type: 'pie', labels: this.labels, datasets: this.datasets},  
-    { id: '6', type: 'bar', labels: this.labels, datasets: this.datasets},  
-    { id: '7', type: 'pie', labels: this.labels, datasets: this.datasets},  
-    { id: '8', type: 'pie', labels: this.labels, datasets: this.datasets},  
-    { id: '9', type: 'pie', labels: this.labels, datasets: this.datasets},
+    { id: '1', type: 'bar', labels: this.labels, datasets: this.datasets },
+    { id: '2', type: 'bar', labels: this.labels, datasets: this.datasets },
+    { id: '3', type: 'bar', labels: this.labels, datasets: this.datasets },
+    { id: '4', type: 'bar', labels: this.labels, datasets: this.datasets },
+    { id: '5', type: 'pie', labels: this.labels, datasets: this.datasets },
+    { id: '6', type: 'bar', labels: this.labels, datasets: this.datasets },
+    { id: '7', type: 'pie', labels: this.labels, datasets: this.datasets },
+    { id: '8', type: 'pie', labels: this.labels, datasets: this.datasets },
+    { id: '9', type: 'pie', labels: this.labels, datasets: this.datasets },
   ];
 
   // Variables for tracking drag and drop actions
@@ -72,18 +69,28 @@ export class DragDropGridComponent {
 
   // Method to add a bar chart item
   addBarChart() {
-    this.items.push({ id: (this.items.length + 1).toString(), type: 'bar', labels: this.labels, datasets: this.datasets });
+    this.items.push({
+      id: (this.items.length + 1).toString(),
+      type: 'bar',
+      labels: this.labels,
+      datasets: this.datasets,
+    });
   }
 
   // Method to add a pie chart item
   addPieChart() {
-    this.items.push({ id: (this.items.length + 1).toString(), type: 'bar', labels: this.labels, datasets: this.datasets });
+    this.items.push({
+      id: (this.items.length + 1).toString(),
+      type: 'bar',
+      labels: this.labels,
+      datasets: this.datasets,
+    });
   }
 
   // Method to shuffle the items
   shuffle() {
     this.items.sort(function () {
-      return .5 - Math.random();
+      return 0.5 - Math.random();
     });
   }
 
@@ -94,7 +101,7 @@ export class DragDropGridComponent {
     if (!this.listGroup) {
       return;
     }
-    this.listGroup._items.forEach(dropList => {
+    this.listGroup._items.forEach((dropList) => {
       if (__isInsideDropListClientRect(dropList, point.x, point.y)) {
         this.activeContainer = dropList;
         return;
@@ -122,7 +129,10 @@ export class DragDropGridComponent {
     phElement.style.display = 'none';
     parent.removeChild(phElement);
     parent.appendChild(phElement);
-    parent.insertBefore(this.source.element.nativeElement, parent.children[this.sourceIndex]);
+    parent.insertBefore(
+      this.source.element.nativeElement,
+      parent.children[this.sourceIndex]
+    );
     this.target = null;
     this.source = null;
     if (this.sourceIndex !== this.targetIndex) {
@@ -148,7 +158,10 @@ export class DragDropGridComponent {
     if (!sourceElement || !sourceElement.parentElement) {
       return false;
     }
-    let dragIndex = __indexOf(dropElement.parentElement.children, (this.source ? phElement : sourceElement));
+    let dragIndex = __indexOf(
+      dropElement.parentElement.children,
+      this.source ? phElement : sourceElement
+    );
     let dropIndex = __indexOf(dropElement.parentElement.children, dropElement);
     if (!this.source) {
       this.sourceIndex = dragIndex;
@@ -160,20 +173,28 @@ export class DragDropGridComponent {
     this.targetIndex = dropIndex;
     this.target = drop;
     phElement.style.display = '';
-    dropElement.parentElement.insertBefore(phElement, (dropIndex > dragIndex
-      ? dropElement.nextSibling : dropElement));
-    this.placeholder._dropListRef.enter(drag._dragRef, drag.element.nativeElement.offsetLeft, drag.element.nativeElement.offsetTop);
+    dropElement.parentElement.insertBefore(
+      phElement,
+      dropIndex > dragIndex ? dropElement.nextSibling : dropElement
+    );
+    this.placeholder._dropListRef.enter(
+      drag._dragRef,
+      drag.element.nativeElement.offsetLeft,
+      drag.element.nativeElement.offsetTop
+    );
     return true;
-  }
+  };
 
   /** Determines the point of the page that was touched by the user. */
   getPointerPositionOnPage(event: MouseEvent | TouchEvent) {
     // Determine the position of the touch or mouse event
-    const point = __isTouchEvent(event) ? (event.touches[0] || event.changedTouches[0]) : event;
+    const point = __isTouchEvent(event)
+      ? event.touches[0] || event.changedTouches[0]
+      : event;
     const scrollPosition = this.viewportRuler.getViewportScrollPosition();
     return {
       x: point.pageX - scrollPosition.left,
-      y: point.pageY - scrollPosition.top
+      y: point.pageY - scrollPosition.top,
     };
   }
 }
@@ -181,7 +202,7 @@ export class DragDropGridComponent {
 // Utility function to find the index of an element in a collection
 function __indexOf(collection: any, node: any) {
   return Array.prototype.indexOf.call(collection, node);
-};
+}
 
 /** Determines whether an event is a touch event. */
 function __isTouchEvent(event: MouseEvent | TouchEvent): event is TouchEvent {
@@ -189,7 +210,12 @@ function __isTouchEvent(event: MouseEvent | TouchEvent): event is TouchEvent {
 }
 
 // Utility function to check if a point is inside a drop container's client rect
-function __isInsideDropListClientRect(dropList: CdkDropList, x: number, y: number) {
-  const { top, bottom, left, right } = dropList.element.nativeElement.getBoundingClientRect();
+function __isInsideDropListClientRect(
+  dropList: CdkDropList,
+  x: number,
+  y: number
+) {
+  const { top, bottom, left, right } =
+    dropList.element.nativeElement.getBoundingClientRect();
   return y >= top && y <= bottom && x >= left && x <= right;
 }

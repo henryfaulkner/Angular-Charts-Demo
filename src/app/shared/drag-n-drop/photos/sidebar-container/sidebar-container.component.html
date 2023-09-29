@@ -5,7 +5,7 @@
         [cdkDropListData]="photos"
         (cdkDropListDropped)="drop($event)"
     >
-        <li *ngFor="let photo of photos" class="user" cdkDrag>
+        <li *ngFor="let photo of photos; index as i" class="user {{i % 2 === 0 ? 'col1' : 'col2'}}" cdkDrag>
             <a
               class="link"
             >

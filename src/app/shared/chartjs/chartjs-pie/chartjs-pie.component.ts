@@ -2,6 +2,7 @@ import { Component, Input, OnChanges, ViewChild } from '@angular/core';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import DatalabelsPlugin from 'chartjs-plugin-datalabels';
 import { BaseChartDirective } from 'ng2-charts';
+import { ChartModel } from 'src/app/core/models/chart.model';
 import { ChartDatasetVectorAndLabel } from 'src/app/core/types/chart-dataset-vector-and-label.type';
 
 @Component({
@@ -9,7 +10,7 @@ import { ChartDatasetVectorAndLabel } from 'src/app/core/types/chart-dataset-vec
   templateUrl: './chartjs-pie.component.html',
   styleUrls: ['./chartjs-pie.component.scss'],
 })
-export class ChartjsPieComponent implements OnChanges {
+export class ChartjsPieComponent extends ChartModel implements OnChanges {
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
   @Input() labels: string[] = [];
   @Input() datasets: ChartDatasetVectorAndLabel[] = [];
@@ -36,6 +37,10 @@ export class ChartjsPieComponent implements OnChanges {
     datasets: [],
   };
   pieChartPlugins = [DatalabelsPlugin];
+
+  constructor() {
+    super();
+  }
 
   ngOnChanges(): void {
     const labels = this.labels;

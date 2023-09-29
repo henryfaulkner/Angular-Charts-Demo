@@ -28,9 +28,10 @@
 }
   
 .chartjs-grid {
-    width: 400px;
-    height: 400px;
-    max-width: 100%;
+    min-width: 400px;
+    min-height: 400px;
+    height: fit-content;
+    width: fit-content;
     border: dotted #ccc 2px;
 }
   

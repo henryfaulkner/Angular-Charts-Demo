@@ -1,4 +1,7 @@
+@import "../../../../assets/styles/utility/utility";
+
 .chartjs-bar {
-    height: 20vh;
-    width: 20vw;
+    min-height: 20vh;
+    min-width: 20vw;
+    background-color: $now-green-secondary;
 }

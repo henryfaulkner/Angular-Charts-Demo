@@ -1,6 +1,5 @@
 .sidebar-container {
-    height: 500px;
-    width: 200px;
+    
 }
 
 ul {
@@ -8,8 +7,16 @@ ul {
     width: inherit;
     margin: 0;
     padding: 0;
+    display: grid;
+    gap: 0 0;
+    grid-auto-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "col1 col2";
 }
 
 li {
+    height: fit-content;
+    width: fit-content;
     list-style: none;
 }
+

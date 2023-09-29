@@ -9,8 +9,9 @@
     </div>  
   </div>
   <div id="charts">
-    <app-chartjs-bar [labels]="areaChartLabels" [datasets]="areaChartDatasets" cdkDrag></app-chartjs-bar>
-    <app-chartjs-pie [labels]="regionChartLabels" [datasets]="regionChartDatasets" cdkDrag></app-chartjs-pie>
+    <app-chartjs-bar [labels]="regionChartLabels" [datasets]="regionChartDatasets" cdkDrag cdkDragHandle></app-chartjs-bar>
+    <app-chartjs-pie [labels]="regionChartLabels" [datasets]="regionChartDatasets" cdkDrag cdkDragHandle></app-chartjs-pie>
+    <app-chartjs-scatter cdkDrag cdkDragHandle></app-chartjs-scatter>
     <app-chartjs-grid></app-chartjs-grid>
   </div>
 

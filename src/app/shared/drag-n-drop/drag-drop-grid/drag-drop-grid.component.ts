@@ -43,7 +43,6 @@ export class DragDropGridComponent {
     this.source = null;
     this.sourceIndex = 0;
     this.dragIndex = 0;
-    this.activeContainer = null;
   }
 
   ngAfterViewInit() {
@@ -133,7 +132,10 @@ export class DragDropGridComponent {
       return;
     }
     this.listGroup._items.forEach((dropList) => {
-      if (__isInsideDropListClientRect(dropList, point.x, point.y)) {
+      if (
+        __isInsideDropListClientRect(dropList, point.x, point.y) &&
+        dropList
+      ) {
         this.activeContainer = dropList;
         return;
       }
@@ -142,6 +144,7 @@ export class DragDropGridComponent {
 
   // Method called when an item is dropped
   dropListDropped(event: any) {
+    console.log('dropped');
     // Handle the drop event
     if (!this.target) {
       return;
@@ -175,18 +178,24 @@ export class DragDropGridComponent {
   dropListEnterPredicate = (drag: CdkDrag, drop: CdkDropList) => {
     // Check if the item can be dropped into the container
     if (drop !== this.activeContainer) {
+      console.log('predicate false, drop !== this.activeContainer');
       return false;
     }
     if (!this.placeholder) {
+      console.log('predicate false, !this.placeholder');
       return false;
     }
     let phElement = this.placeholder.element.nativeElement;
     let sourceElement = drag.dropContainer.element.nativeElement;
     let dropElement = drop.element.nativeElement;
     if (!dropElement.parentElement) {
+      console.log('predicate false, !dropElement.parentElement');
       return false;
     }
     if (!sourceElement || !sourceElement.parentElement) {
+      console.log(
+        'predicate false, !sourceElement || !sourceElement.parentElement'
+      );
       return false;
     }
     let dragIndex = __indexOf(
@@ -213,6 +222,7 @@ export class DragDropGridComponent {
       drag.element.nativeElement.offsetLeft,
       drag.element.nativeElement.offsetTop
     );
+    console.log('predicate true');
     return true;
   };
 

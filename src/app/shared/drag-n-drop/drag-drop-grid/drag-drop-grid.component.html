@@ -13,19 +13,16 @@
     <ul class="example-list"><li *ngFor="let item of items">{{ item.id }}</li></ul>
 
     <div class="example-container" cdkDropListGroup>
-        <div 
-            cdkDropList 
-            [cdkDropListEnterPredicate]="dropListEnterPredicate" 
-            (cdkDropListDropped)="dropListDropped($event)"
-        ></div>
+        <div cdkDropList (cdkDropListEntered)="enter" (cdkDropListDropped)="drop($event)" #placeholder></div>
         <ng-container *ngFor="let item of items; let i = index">
             <div 
                 cdkDropList 
                 *ngIf="item.selected"
-                [cdkDropListEnterPredicate]="dropListEnterPredicate" 
-                (cdkDropListDropped)="dropListDropped($event)"
+                (cdkDropListEntered)="enter($event)" 
+                (cdkDropListDropped)="drop($event)"
+                [cdkDropListData]="{item:item,index:i}"
             >
-                <div cdkDrag class="example-box {{item.expanded ? 'expanded' : ''}}" (cdkDragMoved)="dragMoved($event);">
+                <div cdkDrag class="example-box {{item.expanded ? 'expanded' : ''}}">
                     <app-chartjs-pie *ngIf="item.type === 'pie'" [labels]="item.displayLabels" [datasets]="item.displayDatasets"></app-chartjs-pie>
                     <app-chartjs-bar *ngIf="item.type === 'bar'" [labels]="item.displayLabels" [datasets]="item.displayDatasets"></app-chartjs-bar>
                     <div class="handle-icon" cdkDragHandle [style]="isDraggable ? 'display: block;' : 'display: none;'">

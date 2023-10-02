@@ -1,11 +1,10 @@
 import {
-  CdkDrag,
-  CdkDragMove,
+  CdkDragDrop,
+  CdkDragEnter,
   CdkDropList,
   CdkDropListGroup,
   moveItemInArray,
 } from '@angular/cdk/drag-drop';
-import { ViewportRuler } from '@angular/cdk/overlay';
 import { Component, Input, ViewChild } from '@angular/core';
 import { ChartComponentProps } from 'src/app/core/types/chart-component-props.type';
 import { ChartDatasetVectorAndLabel } from 'src/app/core/types/chart-dataset-vector-and-label.type';
@@ -29,34 +28,21 @@ export class DragDropGridComponent {
   @ViewChild(CdkDropList) placeholder: CdkDropList | null;
   public target: CdkDropList | null;
   public targetIndex: number;
-  public source: CdkDropList | null;
+  public source: any;
   public sourceIndex: number;
-  public dragIndex: number;
   public activeContainer: any;
   isDraggable = true;
 
-  constructor(private viewportRuler: ViewportRuler) {
+  constructor() {
     this.listGroup = null;
     this.placeholder = null;
     this.target = null;
     this.targetIndex = 0;
     this.source = null;
     this.sourceIndex = 0;
-    this.dragIndex = 0;
   }
 
-  ngAfterViewInit() {
-    // Hide the placeholder element
-    if (!this.placeholder) {
-      return;
-    }
-    let phElement = this.placeholder.element.nativeElement;
-    if (!phElement || !phElement.parentElement) {
-      return;
-    }
-    phElement.style.display = 'none';
-    phElement.parentElement.removeChild(phElement);
-  }
+  ngAfterViewInit() {}
 
   //#region CONTROLS region
 
@@ -124,119 +110,82 @@ export class DragDropGridComponent {
 
   //#region DRAG AND DROP region
 
-  // Method called during a drag operation
-  dragMoved(e: CdkDragMove) {
-    // Determine the active drop container
-    let point = this.getPointerPositionOnPage(e.event);
-    if (!this.listGroup) {
-      return;
-    }
-    this.listGroup._items.forEach((dropList) => {
-      if (
-        __isInsideDropListClientRect(dropList, point.x, point.y) &&
-        dropList
-      ) {
-        this.activeContainer = dropList;
-        return;
-      }
-    });
-  }
+  drop(event: CdkDragDrop<any>) {
+    // this.items[event.previousContainer.data.index] = event.container.data.item;
+    // this.items[event.container.data.index] = event.previousContainer.data.item;
+    // event.currentIndex = 0;
 
-  // Method called when an item is dropped
-  dropListDropped(event: any) {
-    console.log('dropped');
-    // Handle the drop event
-    if (!this.target) {
-      return;
-    }
-    if (!this.placeholder) {
-      return;
-    }
-    if (!this.source) {
-      return;
-    }
+    if (!this.target) return;
+    if (!this.placeholder) return;
+
     let phElement = this.placeholder.element.nativeElement;
-    let parent = phElement.parentElement;
-    if (!parent) {
-      return;
-    }
+    let parent = phElement.parentNode;
     phElement.style.display = 'none';
+    if (!parent) return;
+
     parent.removeChild(phElement);
     parent.appendChild(phElement);
     parent.insertBefore(
       this.source.element.nativeElement,
       parent.children[this.sourceIndex]
     );
+
     this.target = null;
     this.source = null;
-    if (this.sourceIndex !== this.targetIndex) {
+
+    if (this.sourceIndex != this.targetIndex)
       moveItemInArray(this.items, this.sourceIndex, this.targetIndex);
-    }
   }
 
-  // Predicate function for entering a drop container
-  dropListEnterPredicate = (drag: CdkDrag, drop: CdkDropList) => {
-    // Check if the item can be dropped into the container
-    if (drop !== this.activeContainer) {
-      console.log('predicate false, drop !== this.activeContainer');
-      return false;
+  enter(event: CdkDragEnter<any>) {
+    const drag = event.item;
+    const drop = event.container;
+
+    if (drop === this.placeholder) {
+      return true;
     }
     if (!this.placeholder) {
-      console.log('predicate false, !this.placeholder');
       return false;
     }
-    let phElement = this.placeholder.element.nativeElement;
-    let sourceElement = drag.dropContainer.element.nativeElement;
+
+    let placeholderElement = this.placeholder.element.nativeElement;
     let dropElement = drop.element.nativeElement;
-    if (!dropElement.parentElement) {
-      console.log('predicate false, !dropElement.parentElement');
+
+    if (!dropElement.parentNode) {
       return false;
     }
-    if (!sourceElement || !sourceElement.parentElement) {
-      console.log(
-        'predicate false, !sourceElement || !sourceElement.parentElement'
-      );
-      return false;
-    }
+
     let dragIndex = __indexOf(
-      dropElement.parentElement.children,
-      this.source ? phElement : sourceElement
+      dropElement.parentNode.children,
+      drag.dropContainer.element.nativeElement
     );
-    let dropIndex = __indexOf(dropElement.parentElement.children, dropElement);
+    let dropIndex = __indexOf(dropElement.parentNode.children, dropElement);
+
     if (!this.source) {
       this.sourceIndex = dragIndex;
       this.source = drag.dropContainer;
-      phElement.style.width = sourceElement.clientWidth + 'px';
-      phElement.style.height = sourceElement.clientHeight + 'px';
-      sourceElement.parentElement.removeChild(sourceElement);
+
+      let sourceElement = this.source.element.nativeElement;
+      placeholderElement.style.width = sourceElement.clientWidth + 'px';
+      placeholderElement.style.height = sourceElement.clientHeight + 'px';
+      sourceElement.parentNode.removeChild(sourceElement);
     }
+
     this.targetIndex = dropIndex;
     this.target = drop;
-    phElement.style.display = '';
-    dropElement.parentElement.insertBefore(
-      phElement,
-      dropIndex > dragIndex ? dropElement.nextSibling : dropElement
+
+    placeholderElement.style.display = '';
+    dropElement.parentNode.insertBefore(
+      placeholderElement,
+      dragIndex < dropIndex ? dropElement.nextSibling : dropElement
     );
+    this.source.start();
     this.placeholder._dropListRef.enter(
       drag._dragRef,
       drag.element.nativeElement.offsetLeft,
       drag.element.nativeElement.offsetTop
     );
-    console.log('predicate true');
-    return true;
-  };
-
-  /** Determines the point of the page that was touched by the user. */
-  getPointerPositionOnPage(event: MouseEvent | TouchEvent) {
-    // Determine the position of the touch or mouse event
-    const point = __isTouchEvent(event)
-      ? event.touches[0] || event.changedTouches[0]
-      : event;
-    const scrollPosition = this.viewportRuler.getViewportScrollPosition();
-    return {
-      x: point.pageX - scrollPosition.left,
-      y: point.pageY - scrollPosition.top,
-    };
+    return false;
   }
 
   //#endregion
@@ -247,7 +196,7 @@ function __indexOf(collection: any, node: any) {
   return Array.prototype.indexOf.call(collection, node);
 }
 
-/** Determines whether an event is a touch event. */
+// Determines whether an event is a touch event.
 function __isTouchEvent(event: MouseEvent | TouchEvent): event is TouchEvent {
   return event.type.startsWith('touch');
 }

@@ -3,9 +3,10 @@ import {
   CdkDragEnter,
   CdkDropList,
   CdkDropListGroup,
+  DragRef,
   moveItemInArray,
 } from '@angular/cdk/drag-drop';
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { ChartComponentProps } from 'src/app/core/types/chart-component-props.type';
 import { ChartDatasetVectorAndLabel } from 'src/app/core/types/chart-dataset-vector-and-label.type';
 import { handleExpandReduceChartData } from 'src/app/core/ui-helpers/handle-expand-reduce-chart-data.func';
@@ -23,6 +24,9 @@ export class DragDropGridComponent {
   @Input() pieLabels: string[] = [];
   @Input() pieDatasets: ChartDatasetVectorAndLabel[] = [];
 
+  @ViewChild('flexWrap', { static: true }) flexWrap: ElementRef;
+  @ViewChild('flexWrapChild', { static: true }) flexWrapChild: ElementRef;
+
   // Variables for tracking drag and drop actions
   @ViewChild(CdkDropListGroup) listGroup: CdkDropListGroup<CdkDropList> | null;
   @ViewChild(CdkDropList) placeholder: CdkDropList | null;
@@ -31,6 +35,7 @@ export class DragDropGridComponent {
   public source: any;
   public sourceIndex: number;
   public activeContainer: any;
+  public dragRef: DragRef | null;
   isDraggable = true;
 
   constructor() {
@@ -40,9 +45,16 @@ export class DragDropGridComponent {
     this.targetIndex = 0;
     this.source = null;
     this.sourceIndex = 0;
+    this.dragRef = null;
   }
 
-  ngAfterViewInit() {}
+  ngAfterViewInit() {
+    if (!this.placeholder) return;
+    const placeholderElement = this.placeholder.element.nativeElement;
+    if (!placeholderElement || !placeholderElement.parentNode) return;
+    placeholderElement.style.display = 'none';
+    placeholderElement.parentNode.removeChild(placeholderElement);
+  }
 
   //#region CONTROLS region
 
@@ -98,10 +110,6 @@ export class DragDropGridComponent {
     item.handleExpandSelection(item);
   }
 
-  expandData() {}
-
-  reduceData() {}
-
   toggleDraggability() {
     this.isDraggable = !this.isDraggable;
   }
@@ -110,31 +118,44 @@ export class DragDropGridComponent {
 
   //#region DRAG AND DROP region
 
+  dragIndex = -1;
   drop(event: CdkDragDrop<any>) {
-    // this.items[event.previousContainer.data.index] = event.container.data.item;
-    // this.items[event.container.data.index] = event.previousContainer.data.item;
-    // event.currentIndex = 0;
-
     if (!this.target) return;
     if (!this.placeholder) return;
 
-    let phElement = this.placeholder.element.nativeElement;
-    let parent = phElement.parentNode;
-    phElement.style.display = 'none';
-    if (!parent) return;
+    if (!this.target) {
+      return;
+    }
 
-    parent.removeChild(phElement);
-    parent.appendChild(phElement);
-    parent.insertBefore(
+    const placeholderElement: HTMLElement =
+      this.placeholder.element.nativeElement;
+    if (!placeholderElement || !placeholderElement.parentElement) return;
+    const placeholderParentElement: HTMLElement =
+      placeholderElement.parentElement;
+
+    placeholderElement.style.display = 'none';
+
+    placeholderParentElement.removeChild(placeholderElement);
+    placeholderParentElement.appendChild(placeholderElement);
+    placeholderParentElement.insertBefore(
       this.source.element.nativeElement,
-      parent.children[this.sourceIndex]
+      placeholderParentElement.children[this.sourceIndex]
     );
+
+    if (this.placeholder._dropListRef.isDragging()) {
+      if (this.dragRef) {
+        this.placeholder._dropListRef.exit(this.dragRef);
+      }
+    }
 
     this.target = null;
     this.source = null;
+    this.dragRef = null;
+    this.dragIndex = -1;
 
-    if (this.sourceIndex != this.targetIndex)
+    if (this.sourceIndex !== this.targetIndex) {
       moveItemInArray(this.items, this.sourceIndex, this.targetIndex);
+    }
   }
 
   enter(event: CdkDragEnter<any>) {
@@ -155,36 +176,37 @@ export class DragDropGridComponent {
       return false;
     }
 
-    let dragIndex = __indexOf(
-      dropElement.parentNode.children,
-      drag.dropContainer.element.nativeElement
-    );
+    if (this.dragIndex === -1) {
+      this.dragIndex = __indexOf(
+        dropElement.parentNode.children,
+        drag.dropContainer.element.nativeElement
+      );
+    }
+
     let dropIndex = __indexOf(dropElement.parentNode.children, dropElement);
 
     if (!this.source) {
-      this.sourceIndex = dragIndex;
+      this.sourceIndex = this.dragIndex;
       this.source = drag.dropContainer;
-
-      let sourceElement = this.source.element.nativeElement;
-      placeholderElement.style.width = sourceElement.clientWidth + 'px';
-      placeholderElement.style.height = sourceElement.clientHeight + 'px';
-      sourceElement.parentNode.removeChild(sourceElement);
     }
 
     this.targetIndex = dropIndex;
     this.target = drop;
-
+    this.dragRef = drag._dragRef;
     placeholderElement.style.display = '';
+
     dropElement.parentNode.insertBefore(
       placeholderElement,
-      dragIndex < dropIndex ? dropElement.nextSibling : dropElement
+      this.dragIndex < dropIndex ? dropElement.nextSibling : dropElement
     );
-    this.source.start();
+
     this.placeholder._dropListRef.enter(
       drag._dragRef,
       drag.element.nativeElement.offsetLeft,
       drag.element.nativeElement.offsetTop
     );
+
+    this.dragIndex = dropIndex;
     return false;
   }
 
@@ -210,4 +232,68 @@ function __isInsideDropListClientRect(
   const { top, bottom, left, right } =
     dropList.element.nativeElement.getBoundingClientRect();
   return y >= top && y <= bottom && x >= left && x <= right;
+}
+
+function getComputedValue(container: HTMLElement | Element, cssProp: string) {
+  return parseInt(
+    window
+      .getComputedStyle(container, null)
+      .getPropertyValue(cssProp)
+      .split('px')[0]
+  );
+}
+
+function calcFlexWrapColumns(container: ElementRef, child: ElementRef): number {
+  let parentWidth = getComputedValue(container.nativeElement, 'width');
+  let parentMarginLeft = getComputedValue(
+    container.nativeElement,
+    'margin-left'
+  );
+  let parentMarginRight = getComputedValue(
+    container.nativeElement,
+    'margin-Right'
+  );
+  let parentPaddingLeft = getComputedValue(
+    container.nativeElement,
+    'padding-left'
+  );
+  let parentPaddingRight = getComputedValue(
+    container.nativeElement,
+    'padding-Right'
+  );
+
+  if (!child) return 0;
+  let childWidth = getComputedValue(child.nativeElement, 'width');
+  let childMarginLeft = getComputedValue(child.nativeElement, 'margin-left');
+  let childMarginRight = getComputedValue(child.nativeElement, 'margin-right');
+  let childPaddingLeft = getComputedValue(child.nativeElement, 'padding-left');
+  let childPaddingRight = getComputedValue(
+    child.nativeElement,
+    'padding-right'
+  );
+
+  let parentWidthNoPaddingOrMargin =
+    parentWidth -
+    parentPaddingLeft -
+    parentPaddingRight -
+    parentMarginLeft -
+    parentMarginRight;
+  let childWidthWithMarginAndPadding =
+    childWidth +
+    childMarginLeft +
+    childMarginRight +
+    childPaddingLeft +
+    childPaddingRight +
+    10;
+  console.log('parentWidthNoPaddingOrMargin, ', parentWidthNoPaddingOrMargin);
+  console.log(
+    'childWidthWithMarginAndPadding, ',
+    childWidthWithMarginAndPadding
+  );
+
+  parentWidthNoPaddingOrMargin =
+    parentWidthNoPaddingOrMargin + childMarginLeft + childMarginRight;
+  let numColumns =
+    parentWidthNoPaddingOrMargin / childWidthWithMarginAndPadding;
+  return numColumns;
 }

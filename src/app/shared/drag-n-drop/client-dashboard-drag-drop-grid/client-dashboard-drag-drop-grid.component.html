@@ -21,6 +21,7 @@
                 [cdkDropListData]="{item:item,index:i}"
             >
                 <div cdkDrag class="wrapper-box {{item.expanded ? 'expanded' : ''}}">
+                    <h5>{{item.title}}</h5>
                     <ng-container class="graph-container">
                         <app-flagged-invoice-count-graph *ngIf="item.type === 'flagged-invoice-chart'"></app-flagged-invoice-count-graph>
                         <app-nowaccount-difference-graph *ngIf="item.type === 'nowaccount-difference'"></app-nowaccount-difference-graph>

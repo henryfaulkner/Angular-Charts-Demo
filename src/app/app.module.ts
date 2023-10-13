@@ -12,6 +12,10 @@ import { SidebarContainerComponent } from './shared/drag-n-drop/photos/sidebar-c
 import { ChartjsGridComponent } from './shared/drag-n-drop/charts/chartjs-grid/chartjs-grid.component';
 import { DragDropGridComponent } from './shared/drag-n-drop/drag-drop-grid/drag-drop-grid.component';
 import { DragDropGridCheckboxDropdownComponent } from './shared/drag-n-drop/drag-drop-grid-checkbox-dropdown/drag-drop-grid-checkbox-dropdown.component';
+import { FlaggedInvoiceCountGraphComponent } from './shared/chartjs/flagged-invoice-count-graph/flagged-invoice-count-graph.component';
+import { NowaccountDifferenceGraphComponent } from './shared/chartjs/nowaccount-difference-graph/nowaccount-difference-graph.component';
+import { AppRoutingModule } from './app-routing.module';
+import { ClientDashboardComponent } from './pages/client-dashboard/client-dashboard.component';
 
 const components = [
   AppComponent,
@@ -30,8 +34,8 @@ const modules = [
 ];
 
 @NgModule({
-  declarations: [...components, ChartjsGridComponent, DragDropGridComponent, DragDropGridCheckboxDropdownComponent],
-  imports: [...modules],
+  declarations: [...components, ChartjsGridComponent, DragDropGridComponent, DragDropGridCheckboxDropdownComponent, FlaggedInvoiceCountGraphComponent, NowaccountDifferenceGraphComponent, ClientDashboardComponent],
+  imports: [...modules, AppRoutingModule],
   providers: [...components, ...modules],
   bootstrap: [AppComponent],
 })

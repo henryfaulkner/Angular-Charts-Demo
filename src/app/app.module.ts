@@ -16,6 +16,8 @@ import { FlaggedInvoiceCountGraphComponent } from './shared/chartjs/flagged-invo
 import { NowaccountDifferenceGraphComponent } from './shared/chartjs/nowaccount-difference-graph/nowaccount-difference-graph.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ClientDashboardComponent } from './pages/client-dashboard/client-dashboard.component';
+import { ClientDashboardDragDropGridComponent } from './shared/drag-n-drop/client-dashboard-drag-drop-grid/client-dashboard-drag-drop-grid.component';
+import { DisposablePageComponent } from './pages/disposable-page/disposable-page.component';
 
 const components = [
   AppComponent,
@@ -24,7 +26,13 @@ const components = [
   ChartjsScatterComponent,
   SidebarContainerComponent,
   DropzoneContainerComponent,
-  DragDropGridComponent
+  DragDropGridComponent,
+  DragDropGridCheckboxDropdownComponent,
+  FlaggedInvoiceCountGraphComponent, 
+  NowaccountDifferenceGraphComponent, 
+  ClientDashboardDragDropGridComponent, 
+  ClientDashboardComponent,
+  ChartjsGridComponent
 ];
 const modules = [
   BrowserModule,
@@ -34,7 +42,7 @@ const modules = [
 ];
 
 @NgModule({
-  declarations: [...components, ChartjsGridComponent, DragDropGridComponent, DragDropGridCheckboxDropdownComponent, FlaggedInvoiceCountGraphComponent, NowaccountDifferenceGraphComponent, ClientDashboardComponent],
+  declarations: [...components, DisposablePageComponent],
   imports: [...modules, AppRoutingModule],
   providers: [...components, ...modules],
   bootstrap: [AppComponent],

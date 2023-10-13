@@ -1,0 +1,26 @@
+#container {
+    height: 800px;
+    width: 1200px;
+}
+
+#content {
+    display: flex;
+}
+
+#content-sidebar {
+    width: 20%;
+}
+
+#content-content {
+    height: 100%;
+    width: 80%;
+    margin: 50px;
+}
+
+#charts {
+    display: flex;
+}
+
+#w-grid {
+    width: 100vw;
+}

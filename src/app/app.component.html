@@ -1,27 +1,3 @@
-<div id="container">
-  <div id="content" cdkDropListGroup>
-    <div id="content-sidebar">
-      <app-sidebar-container></app-sidebar-container>
-    </div>
-
-    <div id="content-content">
-      <app-dropzone-container></app-dropzone-container>
-    </div>  
-  </div>
-  <div id="charts">
-    <app-chartjs-bar [labels]="regionChartLabels" [datasets]="regionChartDatasets" cdkDrag cdkDragHandle></app-chartjs-bar>
-    <app-chartjs-pie [labels]="regionChartLabels" [datasets]="regionChartDatasets" cdkDrag cdkDragHandle></app-chartjs-pie>
-    <app-chartjs-scatter cdkDrag cdkDragHandle></app-chartjs-scatter>
-    <app-chartjs-grid></app-chartjs-grid>
-  </div>
-
-  <div id="w-grid">
-    <app-drag-drop-grid 
-      [items]="gridItems" 
-      [barLabels]="areaChartLabels"
-      [barDatasets]="areaChartDatasets"
-      [pieLabels]="regionChartLabels" 
-      [pieDatasets]="regionChartDatasets" 
-    ></app-drag-drop-grid>
-  </div>
-</div>
+<ng-component>
+  <router-outlet></router-outlet>
+</ng-component>

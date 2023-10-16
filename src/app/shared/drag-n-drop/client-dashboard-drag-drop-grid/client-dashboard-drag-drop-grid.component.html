@@ -26,6 +26,7 @@
                         <app-flagged-invoice-count-graph *ngIf="item.type === graphTypesEnum.FLAGGED_INVOICE_COUNT"></app-flagged-invoice-count-graph>
                         <app-nowaccount-difference-graph *ngIf="item.type === graphTypesEnum.NOWACCOUNT_DIFFERENCE"></app-nowaccount-difference-graph>
                         <app-credit-request-utilization *ngIf="item.type === graphTypesEnum.CREDIT_REQUEST_UTILIZATION"></app-credit-request-utilization>
+                        <app-client-capacity-utilization-graph *ngIf="item.type === graphTypesEnum.CLIENT_CAPACITY_UTILIZATION"></app-client-capacity-utilization-graph>
                     </ng-container>
                     <div class="handle-icon" cdkDragHandle [style]="isDraggable ? 'display: block;' : 'display: none;'">
                         <svg width="24px" fill="currentColor" viewBox="0 0 24 24">

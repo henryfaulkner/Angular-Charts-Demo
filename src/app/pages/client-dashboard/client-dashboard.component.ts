@@ -43,5 +43,14 @@ export class ClientDashboardComponent implements OnInit {
       expanded: false,
       handleExpandSelection: () => {},
     });
+
+    this.items.push({
+      id: '4',
+      title: 'Client Capacity Utilization',
+      type: ClientDashboardGraphTypes.CLIENT_CAPACITY_UTILIZATION,
+      selected: true,
+      expanded: false,
+      handleExpandSelection: () => {},
+    });
   }
 }

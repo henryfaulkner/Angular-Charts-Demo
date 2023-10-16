@@ -19,6 +19,7 @@ import { DragDropGridCheckboxDropdownComponent } from './shared/drag-n-drop/drag
 import { DragDropGridComponent } from './shared/drag-n-drop/drag-drop-grid/drag-drop-grid.component';
 import { DropzoneContainerComponent } from './shared/drag-n-drop/photos/dropzone-container/dropzone-container.component';
 import { SidebarContainerComponent } from './shared/drag-n-drop/photos/sidebar-container/sidebar-container.component';
+import { ClientCapacityUtilizationGraphComponent } from './shared/chartjs/client-capacity-utilization-graph/client-capacity-utilization-graph.component';
 
 const components = [
   AppComponent,
@@ -46,7 +47,7 @@ const modules = [
 ];
 
 @NgModule({
-  declarations: [...components],
+  declarations: [...components, ClientCapacityUtilizationGraphComponent],
   imports: [...modules],
   providers: [...components, ...modules],
   bootstrap: [AppComponent],

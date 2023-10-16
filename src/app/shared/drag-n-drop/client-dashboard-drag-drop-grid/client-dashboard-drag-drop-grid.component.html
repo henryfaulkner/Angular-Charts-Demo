@@ -31,6 +31,8 @@
                             *ngIf="item.type === graphTypesEnum.CREDIT_REQUEST_UTILIZATION"></app-credit-request-utilization>
                         <app-client-capacity-utilization-graph class="graph"
                             *ngIf="item.type === graphTypesEnum.CLIENT_CAPACITY_UTILIZATION"></app-client-capacity-utilization-graph>
+                        <app-customer-portfolio-portions-graph class="graph"
+                            *ngIf="item.type === graphTypesEnum.CUSTOMER_PORTFOLIO_PORTIONS"></app-customer-portfolio-portions-graph>
                     </div>
                     <div class="handle-icon" cdkDragHandle [style]="isDraggable ? 'display: block;' : 'display: none;'">
                         <svg width="24px" fill="currentColor" viewBox="0 0 24 24">

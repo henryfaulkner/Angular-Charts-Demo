@@ -52,5 +52,14 @@ export class ClientDashboardComponent implements OnInit {
       expanded: false,
       handleExpandSelection: () => {},
     });
+
+    this.items.push({
+      id: '5',
+      title: 'Customer Portfolio Portions',
+      type: ClientDashboardGraphTypes.CUSTOMER_PORTFOLIO_PORTIONS,
+      selected: true,
+      expanded: false,
+      handleExpandSelection: () => {},
+    });
   }
 }

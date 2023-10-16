@@ -20,6 +20,7 @@ import { DragDropGridComponent } from './shared/drag-n-drop/drag-drop-grid/drag-
 import { DropzoneContainerComponent } from './shared/drag-n-drop/photos/dropzone-container/dropzone-container.component';
 import { SidebarContainerComponent } from './shared/drag-n-drop/photos/sidebar-container/sidebar-container.component';
 import { ClientCapacityUtilizationGraphComponent } from './shared/chartjs/client-capacity-utilization-graph/client-capacity-utilization-graph.component';
+import { CustomerPortfolioPortionsGraphComponent } from './shared/chartjs/customer-portfolio-portions-graph/customer-portfolio-portions-graph.component';
 
 const components = [
   AppComponent,
@@ -47,7 +48,7 @@ const modules = [
 ];
 
 @NgModule({
-  declarations: [...components, ClientCapacityUtilizationGraphComponent],
+  declarations: [...components, ClientCapacityUtilizationGraphComponent, CustomerPortfolioPortionsGraphComponent],
   imports: [...modules],
   providers: [...components, ...modules],
   bootstrap: [AppComponent],

@@ -14,6 +14,7 @@ export class NowaccountDifferenceGraphComponent implements OnInit {
   // double bar chart
   // x-axis: Customers
   // y-axis: lifetime invoice amount
+  // purpose: Display the NowAccount Difference vs. Factoring.
 
   doubleBarChartOptions: ChartConfiguration['options'] = {
     responsive: true,

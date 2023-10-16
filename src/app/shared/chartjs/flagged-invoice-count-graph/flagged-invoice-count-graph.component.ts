@@ -14,6 +14,7 @@ export class FlaggedInvoiceCountGraphComponent implements OnInit {
   // scatterplot
   // x-axis: invoice files
   // y-axis: flag types
+  // purpose: Display the flag types currently assigned to active invoices.
 
   scatterChartOptions: ChartConfiguration['options'] = {
     responsive: true,

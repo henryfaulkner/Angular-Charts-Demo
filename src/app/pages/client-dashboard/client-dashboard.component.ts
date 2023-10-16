@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ClientDashboardGraphTypes } from 'src/app/core/enum/client-dashboard-graph-types.enum';
 import { ClientDashboardItem } from 'src/app/core/types/client-dashboard-item.type';
 
 @Component({
@@ -8,26 +9,39 @@ import { ClientDashboardItem } from 'src/app/core/types/client-dashboard-item.ty
 })
 export class ClientDashboardComponent implements OnInit {
   items: ClientDashboardItem[] = [];
-  
+
   constructor() {}
 
   ngOnInit(): void {
+    this.populateClientDashboardItems();
+  }
+
+  populateClientDashboardItems() {
     this.items.push({
       id: '1',
       title: 'Flagged Invoice Count',
-      type: 'flagged-invoice-chart',
+      type: ClientDashboardGraphTypes.FLAGGED_INVOICE_COUNT,
       selected: true,
       expanded: false,
-      handleExpandSelection: () => {}
+      handleExpandSelection: () => {},
     });
 
     this.items.push({
       id: '2',
       title: 'The NowAccount Difference',
-      type: 'nowaccount-difference',
+      type: ClientDashboardGraphTypes.NOWACCOUNT_DIFFERENCE,
       selected: true,
       expanded: false,
-      handleExpandSelection: () => {}
+      handleExpandSelection: () => {},
+    });
+
+    this.items.push({
+      id: '3',
+      title: 'Credit Request Utilization',
+      type: ClientDashboardGraphTypes.CREDIT_REQUEST_UTILIZATION,
+      selected: true,
+      expanded: false,
+      handleExpandSelection: () => {},
     });
   }
 }

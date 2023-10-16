@@ -18,6 +18,7 @@ export class FlaggedInvoiceCountGraphComponent implements OnInit {
 
   scatterChartOptions: ChartConfiguration['options'] = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         display: false,

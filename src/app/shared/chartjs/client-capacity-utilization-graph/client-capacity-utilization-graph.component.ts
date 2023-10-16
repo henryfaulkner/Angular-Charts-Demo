@@ -20,6 +20,7 @@ export class ClientCapacityUtilizationGraphComponent implements OnInit {
 
   stackedBarChartOptions: ChartConfiguration['options'] = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         display: true,
@@ -31,12 +32,18 @@ export class ClientCapacityUtilizationGraphComponent implements OnInit {
     scales: {
       x: {
         title: {
-          display: true,
+          display: false,
           text: jsonData.xTitle,
         },
         stacked: true,
       },
       y: {
+        ticks: {
+          display: true,
+          callback: function (value, index, values) {
+            return `$${value}`;
+          },
+        },
         title: {
           display: true,
           text: jsonData.yTitle,

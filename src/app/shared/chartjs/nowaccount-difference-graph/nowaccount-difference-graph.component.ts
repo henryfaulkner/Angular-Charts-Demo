@@ -18,6 +18,7 @@ export class NowaccountDifferenceGraphComponent implements OnInit {
 
   doubleBarChartOptions: ChartConfiguration['options'] = {
     responsive: true,
+    maintainAspectRatio: false,
     scales: {
       x: {
         title: {

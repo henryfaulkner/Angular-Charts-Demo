@@ -14,13 +14,13 @@
   display: flex;
   flex-wrap: wrap;
   max-width: 100vw;
-  --box-width: 300px;
-  --box-height: 300px;
+  --box-width: 450px;
+  --box-height: 450px;
 }
 
 .wrapper-box {
-  width: 300px;
-  height: 300px;
+  width: 450px;
+  height: 450px;
   padding: 30px;
   border: solid 1px #ccc;
   font-size: 30pt;
@@ -39,7 +39,7 @@
   flex-direction: column;
 
   &.expanded {
-    width: 450px;
+    width: 600px;
     height: 450px;
   }
 
@@ -121,4 +121,12 @@
 
 .cdk-drop-list {
   display: flex;
+}
+
+.graph-container {
+  height: 100%;
+  .graph {
+    display: block;
+    height: 100%;
+  }
 }

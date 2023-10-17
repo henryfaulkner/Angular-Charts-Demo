@@ -1,4 +1,12 @@
 <div class="client-dashboard">
-    <p>Client Dashboard</p>
-    <app-client-dashboard-drag-drop-grid [items]="items"></app-client-dashboard-drag-drop-grid>
+    <app-nowaccount-shell>
+        <div class="nav-tiles">
+            <app-nav-tile></app-nav-tile>
+            <app-nav-tile></app-nav-tile>
+            <app-nav-tile></app-nav-tile>
+            <app-nav-tile></app-nav-tile>
+        </div>
+
+        <app-client-dashboard-drag-drop-grid [items]="items"></app-client-dashboard-drag-drop-grid>
+    </app-nowaccount-shell>
 </div>

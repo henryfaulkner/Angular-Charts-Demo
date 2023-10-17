@@ -21,6 +21,8 @@ import { DropzoneContainerComponent } from './shared/drag-n-drop/photos/dropzone
 import { SidebarContainerComponent } from './shared/drag-n-drop/photos/sidebar-container/sidebar-container.component';
 import { ClientCapacityUtilizationGraphComponent } from './shared/chartjs/client-capacity-utilization-graph/client-capacity-utilization-graph.component';
 import { CustomerPortfolioPortionsGraphComponent } from './shared/chartjs/customer-portfolio-portions-graph/customer-portfolio-portions-graph.component';
+import { NavTileComponent } from './shared/util/nav-tile/nav-tile.component';
+import { NowaccountShellComponent } from './shared/util/nowaccount-shell/nowaccount-shell.component';
 
 const components = [
   AppComponent,
@@ -48,7 +50,7 @@ const modules = [
 ];
 
 @NgModule({
-  declarations: [...components, ClientCapacityUtilizationGraphComponent, CustomerPortfolioPortionsGraphComponent],
+  declarations: [...components, ClientCapacityUtilizationGraphComponent, CustomerPortfolioPortionsGraphComponent, NavTileComponent, NowaccountShellComponent],
   imports: [...modules],
   providers: [...components, ...modules],
   bootstrap: [AppComponent],

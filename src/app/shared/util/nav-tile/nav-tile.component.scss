@@ -1,0 +1,9 @@
+@import "../../../../assets/styles/utility/utility";
+
+.nav-tile {
+    width: 90%;
+    height: 150px;
+    border-radius: $border-radius-large;
+
+    @include secondary-green-to-orange-linear-gradient;
+}

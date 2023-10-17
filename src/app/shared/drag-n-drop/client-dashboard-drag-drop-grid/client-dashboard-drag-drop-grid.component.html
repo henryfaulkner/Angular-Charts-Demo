@@ -1,14 +1,14 @@
-<div>
-    <h1>Drag&Drop with a flex-wrap</h1>
-
-    <div class="controls">
-        <button (click)="shuffle()">Shuffle</button>
-        <app-drag-drop-grid-checkbox-dropdown [items]="items" (outputParameter)="handleDropdownSelection($event)"></app-drag-drop-grid-checkbox-dropdown>
-        <button (click)="toggleDraggability()">Toggle draggability is: {{isDraggable}}</button>
-        <br/>
+<div class="client-dashboard-drag-drop-grid">
+    <div style="display: none;">
+        <h1>Drag&Drop with a flex-wrap</h1>
+        <div class="controls">
+            <button (click)="shuffle()">Shuffle</button>
+            <app-drag-drop-grid-checkbox-dropdown [items]="items" (outputParameter)="handleDropdownSelection($event)"></app-drag-drop-grid-checkbox-dropdown>
+            <button (click)="toggleDraggability()">Toggle draggability is: {{isDraggable}}</button>
+            <br/>
+        </div>
+        <ul class="order-list"><li *ngFor="let item of items">{{ item.id }}</li></ul>
     </div>
-
-    <ul class="order-list"><li *ngFor="let item of items">{{ item.id }}</li></ul>
 
     <div class="group-container" cdkDropListGroup>
         <div cdkDropList (cdkDropListEntered)="enter" (cdkDropListDropped)="drop($event)" #placeholder></div>
@@ -21,17 +21,22 @@
                 [cdkDropListData]="{item:item,index:i}"
             >
                 <div cdkDrag class="wrapper-box {{item.expanded ? 'expanded' : ''}}">
-                    <h5>{{item.title}}</h5>
+                    <h5 class="graph-title">{{item.title}}</h5>
                     <div class="graph-container">
                         <app-flagged-invoice-count-graph class="graph"
+                            [item]="item"
                             *ngIf="item.type === graphTypesEnum.FLAGGED_INVOICE_COUNT"></app-flagged-invoice-count-graph>
                         <app-nowaccount-difference-graph class="graph"
+                            [item]="item"
                             *ngIf="item.type === graphTypesEnum.NOWACCOUNT_DIFFERENCE"></app-nowaccount-difference-graph>
                         <app-credit-request-utilization class="graph"
+                            [item]="item"
                             *ngIf="item.type === graphTypesEnum.CREDIT_REQUEST_UTILIZATION"></app-credit-request-utilization>
                         <app-client-capacity-utilization-graph class="graph"
+                            [item]="item"
                             *ngIf="item.type === graphTypesEnum.CLIENT_CAPACITY_UTILIZATION"></app-client-capacity-utilization-graph>
                         <app-customer-portfolio-portions-graph class="graph"
+                            [item]="item"
                             *ngIf="item.type === graphTypesEnum.CUSTOMER_PORTFOLIO_PORTIONS"></app-customer-portfolio-portions-graph>
                     </div>
                     <div class="handle-icon" cdkDragHandle [style]="isDraggable ? 'display: block;' : 'display: none;'">

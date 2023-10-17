@@ -1,6 +1,8 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild, Input } from '@angular/core';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
+import { ClientDashboardItem } from 'src/app/core/types/client-dashboard-item.type';
+import { formatLabel } from 'src/app/core/ui-helpers/format-label.func';
 import jsonData from 'src/assets/graph-json/flagged-invoice-count.json';
 
 @Component({
@@ -10,6 +12,7 @@ import jsonData from 'src/assets/graph-json/flagged-invoice-count.json';
 })
 export class FlaggedInvoiceCountGraphComponent implements OnInit {
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
+  @Input() item: ClientDashboardItem;
 
   // scatterplot
   // x-axis: invoice files
@@ -40,12 +43,16 @@ export class FlaggedInvoiceCountGraphComponent implements OnInit {
         },
       },
       y: {
+        afterFit: function(scaleInstance) {
+          scaleInstance.width = 100; // sets the width to 100px
+        },
         ticks: {
           display: true,
           stepSize: 1,
           callback: function (value, index, values) {
             // set string labels to index
-            return jsonData.yLabels[index];
+            const yLabel: string = jsonData.yLabels[index];
+            return formatLabel(yLabel, 20);
           },
         },
         title: {

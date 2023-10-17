@@ -1,24 +1,24 @@
-@mixin secondary-green-to-primary-green-linear-gradient() {
+@mixin secondary-green-to-primary-green-linear-gradient($opacity: 0.9) {
     background: rgb(207,207,207);
-    background: linear-gradient(135deg, rgba(193,210,199,0.9) 35%, rgba(36,69,56,0.9) 100%);
+    background: linear-gradient(135deg, rgba(193,210,199,$opacity) 35%, rgba(36,69,56,$opacity) 100%);
 }
 
-@mixin secondary-green-to-orange-linear-gradient() {
+@mixin secondary-green-to-orange-linear-gradient($opacity: 0.9) {
     background: rgb(207,207,207);
-    background: linear-gradient(160deg, rgba(193,210,199,0.9) 50%, rgba(255,135,0,0.9) 100%);
+    background: linear-gradient(160deg, rgba(193,210,199,$opacity) 50%, rgba(255,135,0,$opacity) 100%);
 }
 
-@mixin orange-to-secondary-green-linear-gradient() {
+@mixin orange-to-secondary-green-linear-gradient($opacity: 0.9) {
     background: rgb(255,135,0);
-    background: linear-gradient(135deg, rgba(255,135,0,1) 40%, rgba(193,210,199,1) 75%, rgba(193,210,199,1) 100%);
+    background: linear-gradient(135deg, rgba(255,135,0,$opacity) 40%, rgba(193,210,199,$opacity) 75%, rgba(193,210,199,$opacity) 100%);
 }
 
-@mixin primary-green-to-secondary-green-to-orange-linear-gradient() {
+@mixin primary-green-to-secondary-green-to-orange-linear-gradient($opacity: 0.9) {
     background: rgb(36,69,56);
-    background: linear-gradient(135deg, rgba(36,69,56,0.9) 0%, rgba(193,210,199,0.9) 30%, rgba(255,135,0,0.9) 100%);
+    background: linear-gradient(135deg, rgba(36,69,56,$opacity) 0%, rgba(193,210,199,$opacity) 30%, rgba(255,135,0,$opacity) 100%);
 }
 
-@mixin orange-to-secondary-green-radial-gradient() {
+@mixin orange-to-secondary-green-radial-gradient($opacity: 0.9) {
     background: rgb(193,210,199);
-    background: radial-gradient(circle, rgba(193,210,199,1) 50%, rgba(255,135,0,1) 100%);
+    background: radial-gradient(circle, rgba(193,210,199,$opacity) 50%, rgba(255,135,0,$opacity) 100%);
 }

@@ -1,6 +1,7 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild, Input } from '@angular/core';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
+import { ClientDashboardItem } from 'src/app/core/types/client-dashboard-item.type';
 import jsonData from 'src/assets/graph-json/nowaccount-difference.json';
 
 @Component({
@@ -10,6 +11,7 @@ import jsonData from 'src/assets/graph-json/nowaccount-difference.json';
 })
 export class NowaccountDifferenceGraphComponent implements OnInit {
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
+  @Input() item: ClientDashboardItem;
 
   // double bar chart
   // x-axis: Customers

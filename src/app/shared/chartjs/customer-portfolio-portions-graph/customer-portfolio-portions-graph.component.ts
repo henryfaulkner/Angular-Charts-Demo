@@ -1,7 +1,9 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild, Input } from '@angular/core';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import jsonData from 'src/assets/graph-json/customer-portfolio-portions.json';
+import DatalabelsPlugin from 'chartjs-plugin-datalabels';
+import { ClientDashboardItem } from 'src/app/core/types/client-dashboard-item.type';
 
 @Component({
   selector: 'app-customer-portfolio-portions-graph',
@@ -10,6 +12,7 @@ import jsonData from 'src/assets/graph-json/customer-portfolio-portions.json';
 })
 export class CustomerPortfolioPortionsGraphComponent implements OnInit {
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
+  @Input() item: ClientDashboardItem;
 
   // pie chart
   // x-axis: customers
@@ -27,6 +30,7 @@ export class CustomerPortfolioPortionsGraphComponent implements OnInit {
       datalabels: {
         formatter: (value: any, ctx: any) => {
           if (ctx.chart.data.labels) {
+            console.log('ctx.chart.data.labels[ctx.dataIndex], ', ctx.chart.data.labels[ctx.dataIndex])
             return ctx.chart.data.labels[ctx.dataIndex];
           }
         },
@@ -38,6 +42,8 @@ export class CustomerPortfolioPortionsGraphComponent implements OnInit {
     labels: jsonData.labels,
     datasets: jsonData.datasets,
   };
+
+  pieChartPlugins = [DatalabelsPlugin];
 
   constructor(private changeDetectorRef: ChangeDetectorRef) {}
 

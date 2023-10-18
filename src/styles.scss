@@ -1,3 +1,5 @@
+@import "./assets/styles/utility/utility";
+
 .cdk-drag-placeholder {
     opacity: 0.2;
     height: fit-content;
@@ -12,4 +14,8 @@
 
 .cdk-drop-list-dragging .cdk-drag {
     transition: transform 300ms ease;
+}
+
+.base-html {
+    background-color: $soft-white;
 }

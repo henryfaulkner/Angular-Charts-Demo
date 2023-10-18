@@ -1,4 +1,10 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild, Input } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { ClientDashboardItem } from 'src/app/core/types/client-dashboard-item.type';
@@ -43,7 +49,7 @@ export class FlaggedInvoiceCountGraphComponent implements OnInit {
         },
       },
       y: {
-        afterFit: function(scaleInstance) {
+        afterFit: function (scaleInstance) {
           scaleInstance.width = 100; // sets the width to 100px
         },
         ticks: {
@@ -75,6 +81,8 @@ export class FlaggedInvoiceCountGraphComponent implements OnInit {
             };
           }
         ),
+        pointRadius: 8,
+        pointHoverRadius: 10,
       },
     ],
   };

@@ -2,6 +2,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from '@progress/kendo-angular-layout';
 import { NgChartsModule } from 'ng2-charts';
 import { AppRoutingModule } from './app-routing.module';
@@ -25,6 +26,7 @@ import { SidebarContainerComponent } from './shared/drag-n-drop/photos/sidebar-c
 import { NavTileComponent } from './shared/util/nav-tile/nav-tile.component';
 import { NowaccountShellComponent } from './shared/util/nowaccount-shell/nowaccount-shell.component';
 import { NowaccountSidenavComponent } from './shared/util/nowaccount-sidenav/nowaccount-sidenav.component';
+import { HeaderComponent } from './shared/util/header/header.component';
 
 const components = [
   AppComponent,
@@ -50,6 +52,7 @@ const components = [
 ];
 const modules = [
   BrowserModule,
+  BrowserAnimationsModule,
   NgChartsModule,
   HttpClientModule,
   DragDropModule,
@@ -58,7 +61,7 @@ const modules = [
 ];
 
 @NgModule({
-  declarations: [...components],
+  declarations: [...components, HeaderComponent],
   imports: [...modules],
   providers: [...components, ...modules],
   bootstrap: [AppComponent],

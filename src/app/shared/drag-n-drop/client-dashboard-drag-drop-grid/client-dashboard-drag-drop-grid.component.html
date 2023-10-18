@@ -11,7 +11,7 @@
     </div>
 
     <div class="group-container" cdkDropListGroup>
-        <div cdkDropList (cdkDropListEntered)="enter" (cdkDropListDropped)="drop($event)" #placeholder></div>
+        <div cdkDropList (cdkDropListEntered)="enter" (cdkDropListDropped)="drop($event)" #placeholder id="placeholder"></div>
         <ng-container *ngFor="let item of items; let i = index">
             <div 
                 cdkDropList 

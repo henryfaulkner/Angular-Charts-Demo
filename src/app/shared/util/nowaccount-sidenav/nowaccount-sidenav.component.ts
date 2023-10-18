@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { SelectEvent } from '@progress/kendo-angular-layout';
+import { DrawerSelectEvent } from '@progress/kendo-angular-layout';
 import * as KendoIcons from '@progress/kendo-svg-icons';
 
 @Component({
@@ -10,6 +10,7 @@ import * as KendoIcons from '@progress/kendo-svg-icons';
 })
 export class NowaccountSidenavComponent implements OnInit {
   @Input() isSidenavOpen: boolean;
+  items: [];
 
   icons: KendoIcons.SVGIcon[];
   logoPath = '../../../assets/images/Now_Flower_Logo.png';
@@ -18,7 +19,7 @@ export class NowaccountSidenavComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  toggleSidenav(event: SelectEvent) {}
+  toggleSidenav(event: DrawerSelectEvent) {}
 
   async navigate() {
     await this.router.navigate([], {

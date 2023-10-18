@@ -1,6 +1,7 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild, Input } from '@angular/core';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
+import { ClientDashboardItem } from 'src/app/core/types/client-dashboard-item.type';
 import jsonData from 'src/assets/graph-json/client-capacity-utilization.json';
 
 @Component({
@@ -10,6 +11,7 @@ import jsonData from 'src/assets/graph-json/client-capacity-utilization.json';
 })
 export class ClientCapacityUtilizationGraphComponent implements OnInit {
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
+  @Input() item: ClientDashboardItem;
 
   // stacked bar chart
   // x-axis: client

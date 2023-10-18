@@ -1,3 +1,4 @@
-<div class="nav-tile">
-    sheesh
+<div class="nav-tile {{tileStyle}}" (click)="onClick()">
+    <h2 class="header">{{headerText}}</h2>
+    <ng-content class="subheader-content"></ng-content>
 </div>

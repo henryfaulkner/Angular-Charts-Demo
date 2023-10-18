@@ -7,3 +7,35 @@
 
     @include secondary-green-to-orange-linear-gradient;
 }
+
+.nav-tile.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    font-style: italic;
+    text-align: center;
+    transition: opacity .3s ease;
+    
+    &:hover,
+    &:focus {
+        cursor: pointer;
+        outline: auto;
+        outline-color: $now-green-primary;
+
+        @include secondary-green-to-orange-linear-gradient(0.7);
+    }
+}
+
+.nav-tile.corner {
+    padding: 15px 0 0 15px;
+
+    .header {
+        margin: 0 0 5px 0;
+    }
+}
+
+.header {
+    color: $now-green-primary;
+    font-family: sans-serif;
+}

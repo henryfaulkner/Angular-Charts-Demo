@@ -27,6 +27,7 @@ import { NavTileComponent } from './shared/util/nav-tile/nav-tile.component';
 import { NowaccountShellComponent } from './shared/util/nowaccount-shell/nowaccount-shell.component';
 import { NowaccountSidenavComponent } from './shared/util/nowaccount-sidenav/nowaccount-sidenav.component';
 import { HeaderComponent } from './shared/util/header/header.component';
+import { DashboardGridConfigSideswipeComponent } from './shared/util/dashboard-grid-config-sideswipe/dashboard-grid-config-sideswipe.component';
 
 const components = [
   AppComponent,
@@ -61,7 +62,7 @@ const modules = [
 ];
 
 @NgModule({
-  declarations: [...components, HeaderComponent],
+  declarations: [...components, HeaderComponent, DashboardGridConfigSideswipeComponent],
   imports: [...modules],
   providers: [...components, ...modules],
   bootstrap: [AppComponent],

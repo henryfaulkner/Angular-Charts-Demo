@@ -1,0 +1,18 @@
+<!-- dashboard-grid-config-sideswipe component -->
+<div class="sideswipe {{this.isSideswipeOpen ? 'open' : 'close'}}">
+    <div class="label" 
+        (click)="this.openSideswipe()" 
+        (keydown.enter)="this.openSideswipe()" 
+        (keydown.Space)="this.openSideswipe()" 
+        tabindex="3"
+        style="cursor: pointer;"
+    >
+        <span>Config</span>
+    </div>
+    <div class="controls">
+        <button (click)="shuffle()">Shuffle</button>
+        <!-- <app-drag-drop-grid-checkbox-dropdown [items]="items" (outputParameter)="handleDropdownSelection($event)"></app-drag-drop-grid-checkbox-dropdown> -->
+        <button (click)="toggleDraggability()">Toggle draggability</button>
+        <br/>
+    </div>
+</div>

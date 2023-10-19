@@ -1,0 +1,86 @@
+@import "src/assets/styles/utility/utility";
+
+$height: 120px;
+$info-width: 130px;
+$info-padding: 5px;
+
+span {
+  color: $now-green-secondary;
+  font-family: AcuminPro, sans-serif;
+  font-size: 14px;
+}
+
+h4 {
+  margin: 10px 0;
+}
+
+.sideswipe {
+  z-index: 10;
+  position: absolute;
+  top: 20%;
+  right: -($info-width + ($info-padding * 2)) - 2;
+  height: $height;
+  display: flex;
+  flex-direction: row;
+
+  @media (max-width: $tablet-breakpoint) {
+    position: fixed;
+    margin-right: -15px;
+  }
+
+  > .label {
+    border-bottom-right-radius: $border-radius-small;
+    border-top-right-radius: $border-radius-small;
+    padding: 0 3px;
+    text-align: center;
+    height: inherit;
+    color: $white;
+    background-color: $now-green-primary;
+    writing-mode: vertical-rl;
+    transform: rotateZ(180deg);
+  }
+
+  > .controls {
+    height: inherit;
+    background-color: $white;
+    width: $info-width;
+    padding: 0 5px;
+    opacity: 0;
+
+    p {
+      font-size: $font-size-small;
+    }
+  }
+}
+
+.sideswipe.open {
+  transform: translateX(-($info-width + ($info-padding * 2)));
+  transition: transform 0.5s ease-in-out;
+
+  // accounting for native scollbar
+  @media (max-width: $tablet-breakpoint) {
+    transform: translateX(-($info-width + ($info-padding * 2)) - 17px);
+    margin-right: -15px;
+  }
+
+  > .controls {
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+  }
+}
+
+.sideswipe.close {
+  transform: translateX(0);
+  transition: transform 0.5s ease-in-out;
+
+  // accounting for native scollbar
+  @media (max-width: $tablet-breakpoint) {
+    transform: translateX(-17px);
+    margin-right: -15px;
+  }
+
+  > .controls {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+  }
+}

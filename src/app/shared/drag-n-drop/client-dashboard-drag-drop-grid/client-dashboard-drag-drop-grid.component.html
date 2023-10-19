@@ -1,12 +1,10 @@
 <div class="client-dashboard-drag-drop-grid">
+    <app-dashboard-grid-config-sideswipe
+        (toggleDraggabilityEvent)="toggleDraggability()"
+        (shuffleEvent)="shuffle()"
+    ></app-dashboard-grid-config-sideswipe>
     <div style="display: none;">
         <h1>Drag&Drop with a flex-wrap</h1>
-        <div class="controls">
-            <button (click)="shuffle()">Shuffle</button>
-            <app-drag-drop-grid-checkbox-dropdown [items]="items" (outputParameter)="handleDropdownSelection($event)"></app-drag-drop-grid-checkbox-dropdown>
-            <button (click)="toggleDraggability()">Toggle draggability is: {{isDraggable}}</button>
-            <br/>
-        </div>
         <ul class="order-list"><li *ngFor="let item of items">{{ item.id }}</li></ul>
     </div>
 

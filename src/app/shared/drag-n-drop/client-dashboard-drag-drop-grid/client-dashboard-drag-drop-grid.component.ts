@@ -32,7 +32,7 @@ export class ClientDashboardDragDropGridComponent {
   public sourceIndex: number;
   public activeContainer: any;
   public dragRef: DragRef | null;
-  isDraggable = true;
+  isDraggable = false;
 
   constructor() {
     this.listGroup = null;

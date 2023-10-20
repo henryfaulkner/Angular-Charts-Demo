@@ -74,6 +74,13 @@ export class ClientDashboardDragDropGridComponent {
     item.handleExpandSelection(item);
   }
 
+  handleDisplaySelection(item: ClientDashboardItem) {
+    if (item.displayType === 'main')
+      item.displayType = 'alt';
+    else
+      item.displayType = 'main';
+  }
+
   toggleDraggability() {
     this.isDraggable = !this.isDraggable;
   }

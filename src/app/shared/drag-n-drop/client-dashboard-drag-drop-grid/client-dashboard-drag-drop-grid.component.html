@@ -19,33 +19,49 @@
                 [cdkDropListData]="{item:item,index:i}"
             >
                 <div cdkDrag class="wrapper-box {{item.expanded ? 'expanded' : ''}}">
-                    <h5 class="graph-title">{{item.title}}</h5>
-                    <div class="graph-container">
-                        <app-flagged-invoice-count-graph class="graph"
-                            [item]="item"
-                            *ngIf="item.type === graphTypesEnum.FLAGGED_INVOICE_COUNT"></app-flagged-invoice-count-graph>
-                        <app-nowaccount-difference-graph class="graph"
-                            [item]="item"
-                            *ngIf="item.type === graphTypesEnum.NOWACCOUNT_DIFFERENCE"></app-nowaccount-difference-graph>
-                        <app-credit-request-utilization class="graph"
-                            [item]="item"
-                            *ngIf="item.type === graphTypesEnum.CREDIT_REQUEST_UTILIZATION"></app-credit-request-utilization>
-                        <app-client-capacity-utilization-graph class="graph"
-                            [item]="item"
-                            *ngIf="item.type === graphTypesEnum.CLIENT_CAPACITY_UTILIZATION"></app-client-capacity-utilization-graph>
-                        <app-customer-portfolio-portions-graph class="graph"
-                            [item]="item"
-                            *ngIf="item.type === graphTypesEnum.CUSTOMER_PORTFOLIO_PORTIONS"></app-customer-portfolio-portions-graph>
+                    <div class="graph-container {{item.displayType === 'main' ? 'show' : 'hide'}}">
+                        <h5 class="graph-title">{{item.title}}</h5>
+                        <h5 class="alt-title">{{item.altTitle}}</h5>
+                        <div class="graph-content">
+                            <app-flagged-invoice-count-graph class="graph"
+                                [item]="item"
+                                *ngIf="item.type === graphTypesEnum.FLAGGED_INVOICE_COUNT"></app-flagged-invoice-count-graph>
+                            <app-nowaccount-difference-graph class="graph"
+                                [item]="item"
+                                *ngIf="item.type === graphTypesEnum.NOWACCOUNT_DIFFERENCE"></app-nowaccount-difference-graph>
+                            <app-credit-request-utilization class="graph"
+                                [item]="item"
+                                *ngIf="item.type === graphTypesEnum.CREDIT_REQUEST_UTILIZATION"></app-credit-request-utilization>
+                            <app-client-capacity-utilization-graph class="graph"
+                                [item]="item"
+                                *ngIf="item.type === graphTypesEnum.CLIENT_CAPACITY_UTILIZATION"></app-client-capacity-utilization-graph>
+                            <app-customer-portfolio-portions-graph class="graph"
+                                [item]="item"
+                                *ngIf="item.type === graphTypesEnum.CUSTOMER_PORTFOLIO_PORTIONS"></app-customer-portfolio-portions-graph>
+                        </div>
                     </div>
+                    <div class="alt-container {{item.displayType === 'alt' ? 'show' : 'hide'}}">
+                        <div class="alt-content">
+                            <h3>alt content</h3>
+                        </div>
+                    </div>
+
+                    <div class="expand-icon" (click)="handleExpandSelection(item)">
+                        <svg width="24px" fill="currentColor" viewBox="0 0 32 32">
+                            <path d="M16 4 L28 4 L28 16 L24 12 L20 16 L16 12 L20 8z M4 16 L8 20 L12 16 L16 20 L12 24 L16 28 L4 28z "/>
+                        </svg>
+                    </div>
+
+                    <div class="swap-content-icon" (click)="handleDisplaySelection(item)">
+                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0,0,256,256">
+                            <g fill-opacity="0" fill="#dddddd" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,256v-256h256v256z" id="bgRectangle"></path></g><g fill="#ff8700" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(8.53333,8.53333)"><path d="M15,3c-2.9686,0 -5.69718,1.08344 -7.79297,2.875c-0.28605,0.22772 -0.42503,0.59339 -0.36245,0.95363c0.06258,0.36023 0.31676,0.6576 0.66286,0.77549c0.3461,0.1179 0.72895,0.03753 0.99842,-0.20959c1.74821,-1.49444 4.01074,-2.39453 6.49414,-2.39453c5.19656,0 9.45099,3.93793 9.95117,9h-2.95117l4,6l4,-6h-3.05078c-0.51129,-6.14834 -5.67138,-11 -11.94922,-11zM4,10l-4,6h3.05078c0.51129,6.14834 5.67138,11 11.94922,11c2.9686,0 5.69718,-1.08344 7.79297,-2.875c0.28605,-0.22772 0.42504,-0.59339 0.36245,-0.95363c-0.06258,-0.36023 -0.31676,-0.6576 -0.66286,-0.7755c-0.3461,-0.1179 -0.72895,-0.03753 -0.99842,0.20959c-1.74821,1.49444 -4.01074,2.39453 -6.49414,2.39453c-5.19656,0 -9.45099,-3.93793 -9.95117,-9h2.95117z"></path></g></g>
+                        </svg>
+                    </div>
+
                     <div class="handle-icon" cdkDragHandle [style]="isDraggable ? 'display: block;' : 'display: none;'">
                         <svg width="24px" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"></path>
                             <path d="M0 0h24v24H0z" fill="none"></path>
-                        </svg>
-                    </div>
-                    <div class="expand-icon" (click)="handleExpandSelection(item)">
-                        <svg width="24px" fill="currentColor" viewBox="0 0 32 32">
-                            <path d="M16 4 L28 4 L28 16 L24 12 L20 16 L16 12 L20 8z M4 16 L8 20 L12 16 L16 20 L12 24 L16 28 L4 28z "/>
                         </svg>
                     </div>
                 </div>

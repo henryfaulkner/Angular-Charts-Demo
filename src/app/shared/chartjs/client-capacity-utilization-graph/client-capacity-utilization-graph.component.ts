@@ -1,7 +1,8 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild, Input } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild, Input, ChangeDetectionStrategy } from '@angular/core';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { ClientDashboardItem } from 'src/app/core/types/client-dashboard-item.type';
+import { GraphComponent } from 'src/app/core/types/graph-component.interface';
 import jsonData from 'src/assets/graph-json/client-capacity-utilization.json';
 
 @Component({
@@ -9,7 +10,7 @@ import jsonData from 'src/assets/graph-json/client-capacity-utilization.json';
   templateUrl: './client-capacity-utilization-graph.component.html',
   styleUrls: ['./client-capacity-utilization-graph.component.scss'],
 })
-export class ClientCapacityUtilizationGraphComponent implements OnInit {
+export class ClientCapacityUtilizationGraphComponent implements OnInit, GraphComponent {
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
   @Input() item: ClientDashboardItem;
 
@@ -55,7 +56,7 @@ export class ClientCapacityUtilizationGraphComponent implements OnInit {
     },
   };
 
-  stackedBarChartData: ChartData<'bar'> = {
+  stackedBarChartData: ChartData<'bar'> =  {
     labels: jsonData.labels,
     datasets: jsonData.datasets,
   };
@@ -65,7 +66,25 @@ export class ClientCapacityUtilizationGraphComponent implements OnInit {
   constructor(private changeDetectorRef: ChangeDetectorRef) {}
 
   ngOnInit(): void {
+    this.handleExpandSelection();
+    this.item.handleExpandSelection = this.handleExpandSelection.bind(this);
+
     // Force data binding update
     this.changeDetectorRef.detectChanges();
   }
+
+  handleExpandSelection() {
+    if (!this.item) return;
+    
+    this.stackedBarChartData = this.item.expanded ? {
+      labels: jsonData.labels,
+      datasets: jsonData.datasets,
+    } : {
+      labels: jsonData.labels.slice(0,2),
+      datasets: jsonData.datasets.slice(0,2),
+    };
+
+    // Force data binding update
+    this.changeDetectorRef.detectChanges();
+  };
 }

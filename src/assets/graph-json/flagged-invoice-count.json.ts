@@ -17,9 +17,9 @@ const jsonData = {
     'Remit To Missing/Wrong',
     'Customer Address Wrong/Missing',
     'Customer Aging Hold',
-    'Invoice PDF does not match terms',
-    'Invoice PDF does not match submitted Invoice Date, Number and/or Amount',
-    'NeedCredit',
+    'PDF does not match terms',
+    'PDF does not match',
+    'Need Credit',
   ],
   datasets: [
     {

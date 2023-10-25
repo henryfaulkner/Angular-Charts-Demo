@@ -1,41 +1,87 @@
 @import "../../../../assets/styles/utility/utility";
 
 .nav-tile {
-    width: 90%;
-    height: 150px;
-    border-radius: $border-radius-large;
+    position: relative;
+    height: 100%;
+    width: 100%;
 
-    @include secondary-green-to-orange-linear-gradient;
+    .alt-button {
+        display: none;
+        position: absolute;
+        top: 15px;
+        left: 20px;
+        padding: 5px 8px;
+
+        color: $white;
+        background-color: $now-green-primary;
+        border-radius: $border-radius-large;
+        
+        font-size: 20px;
+        font-family: sans-serif;
+
+        &:hover {
+            cursor: pointer;
+            outline: auto;
+        }
+
+        @media (min-width: $desktop-breakpoint) {
+            display: block;
+        }
+    }
+
+    .card {
+        height: 100%;
+        width: 100%;
+        border-radius: $border-radius-large;
+
+        .header {
+            color: $now-green-primary;
+            font-family: sans-serif;
+            font-size: 28px;
+            font-style: italic;
+            padding: 0 12px;
+        }
+
+        @include secondary-green-to-orange-linear-gradient;
+
+        &:hover,
+        &:focus {
+            cursor: pointer;
+            outline: auto;
+            outline-color: $now-green-primary;
+
+            @include secondary-green-to-orange-linear-gradient(0.7);
+        }
+    }
 }
 
-.nav-tile.center {
+.nav-tile.center > .card {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-size: 24px;
-    font-style: italic;
     text-align: center;
     transition: opacity .3s ease;
-    
-    &:hover,
-    &:focus {
-        cursor: pointer;
-        outline: auto;
-        outline-color: $now-green-primary;
-
-        @include secondary-green-to-orange-linear-gradient(0.7);
-    }
 }
 
-.nav-tile.corner {
-    padding: 15px 0 0 15px;
-
-    .header {
-        margin: 0 0 5px 0;
-    }
+.blur {
+    @include hide-show-blur(5px);
 }
 
-.header {
-    color: $now-green-primary;
-    font-family: sans-serif;
+.alt-container {
+    width: 100%;
+}
+
+.translate-blur-wrapper {
+    position: absolute;
+    left: 0;
+    top: 20%;
+
+    & {
+        overflow: hidden;
+    }
+
+    .translate-blur {
+        @include hide-show-blur-translate(5px, -75%, 0, 0, 0);
+    }
 }

@@ -1,0 +1,84 @@
+@mixin hide-show-blur($blur: 5px, $transition-time: 1s) {
+    &.hide {
+        opacity: 0;
+        filter: blur($blur);
+        transition: all $transition-time;
+    }
+
+    &.show {
+        opacity: 1;
+        filter: blur(0);
+        transition: all $transition-time;
+    }
+}
+
+@mixin hide-show-translate(
+    $start-translate-x: 0, 
+    $start-translate-y: 0,
+    $end-translate-x: 0, 
+    $end-translate-y: 0,
+    $transition-time: 1s,
+    $overflow: unset, 
+) {
+    position: absolute;
+
+    & {
+        // set $overflow to hide child element from overflowing parent element bounds
+        position: relative;
+        overflow: $overflow; 
+    }
+
+    &.hide {
+        transform: translate($start-translate-x, $start-translate-y);
+        transition: all;
+    }
+
+    &.show {
+        transform: translate($end-translate-x, $end-translate-y);
+        transition: all $transition-time;
+    }
+
+    @media (prefers-reduced-motion) {
+        .hide-show-content {
+            transition: none;
+        }
+    }
+}
+
+@mixin hide-show-blur-translate(
+    $blur: 5px, 
+    $start-translate-x: 0, 
+    $start-translate-y: 0,
+    $end-translate-x: 0, 
+    $end-translate-y: 0,
+    $transition-time: 1s,
+    $overflow: unset, 
+) {
+    position: absolute;
+
+    & {
+        // set $overflow to hide child element from overflowing parent element bounds
+        position: relative;
+        overflow: $overflow; 
+    }
+
+    &.hide {
+        opacity: 0;
+        filter: blur($blur);
+        transform: translate($start-translate-x, $start-translate-y);
+        transition: all;
+    }
+
+    &.show {
+        opacity: 1;
+        filter: blur(0);
+        transform: translate($end-translate-x, $end-translate-y);
+        transition: all $transition-time;
+    }
+
+    @media (prefers-reduced-motion) {
+        .hide-show-content {
+            transition: none;
+        }
+    }
+}

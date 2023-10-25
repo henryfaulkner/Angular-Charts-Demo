@@ -1,14 +1,24 @@
 <div class="client-dashboard">
     <app-nowaccount-shell>
         <div class="nav-tiles">
-            <app-nav-tile [headerText]="'Add Invoice'" [routerHref]="" [iconType]=""></app-nav-tile>
-            <app-nav-tile [headerText]="'Add Capacity'" [routerHref]="" [iconType]=""></app-nav-tile>
-            <app-nav-tile [headerText]="'Add Customer Credit'" [routerHref]="" [iconType]=""></app-nav-tile>
-            <app-nav-tile [tileStyle]="'corner'" [headerText]="'Your Account Manager'" [routerHref]="" [iconType]="">
-                <span>Henry Faulkner</span> <br/>
-                <span>henry.faulkner@nowcorp.com</span> <br/>
-                <span>(404) 444-4444</span> <br/>
-            </app-nav-tile>
+            <app-nav-tile 
+                [headerText]="'Add Invoice'" 
+                [routerHref]="" 
+            >W</app-nav-tile>
+            <app-nav-tile 
+                [headerText]="'Add Customer'" 
+                [routerHref]="" 
+            ></app-nav-tile>
+            <app-nav-tile 
+                [headerText]="'Add Credit Request'" 
+                [routerHref]="" 
+            ></app-nav-tile>
+            <app-nav-tile 
+                [headerText]="'Add Capacity'" 
+                [routerHref]="" 
+                [alert]="{alerted: true, messages: ['Your client capacity utilization is above 80%. Please submit a request to increase your capacity.']}"
+            ></app-nav-tile>
+            <!-- <app-account-info></app-account-info> -->
         </div>
 
         <app-client-dashboard-drag-drop-grid [items]="items"></app-client-dashboard-drag-drop-grid>

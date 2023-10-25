@@ -58,7 +58,7 @@ export class FlaggedInvoiceCountGraphComponent implements OnInit {
           callback: function (value, index, values) {
             // set string labels to index
             const yLabel: string = jsonData.yLabels[index];
-            return formatLabel(yLabel, 20);
+            return formatLabel(yLabel, 15);
           },
         },
         title: {

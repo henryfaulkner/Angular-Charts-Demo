@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ChartComponentProps } from 'src/app/core/types/chart-component-props.type';
 import { ClientDashboardItem } from 'src/app/core/types/client-dashboard-item.type';
 
 @Component({
@@ -9,7 +8,8 @@ import { ClientDashboardItem } from 'src/app/core/types/client-dashboard-item.ty
 })
 export class DragDropGridCheckboxDropdownComponent implements OnInit {
   @Input() items: ClientDashboardItem[] = [];
-  @Output() outputParameter: EventEmitter<any> = new EventEmitter<any>();
+  @Input() dropdownSelectionEvent: EventEmitter<ClientDashboardItem>;
+  @Output() outputParameter: EventEmitter<ClientDashboardItem>;
   isOpen = false;
 
   constructor() {}

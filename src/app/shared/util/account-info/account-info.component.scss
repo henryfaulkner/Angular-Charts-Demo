@@ -1,0 +1,33 @@
+@import "../../../../assets/styles/utility/utility";
+
+.account-info {
+    .card {
+        height: 100%;
+        max-width: 100%;
+        border-radius: $border-radius-large;
+
+        @include secondary-green-to-orange-linear-gradient;
+        padding: 20px 16px;
+
+        h2 {
+            margin: 0;
+            font-size: 20px;
+        }
+
+        span {
+            margin: 0;
+            font-size: 12px;
+            font-weight: 500;
+            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        * {
+            color: $now-green-primary;
+            font-family: sans-serif;
+        }
+
+        .account-manager, .company {
+            padding-bottom: 8px;
+        }
+    }
+}

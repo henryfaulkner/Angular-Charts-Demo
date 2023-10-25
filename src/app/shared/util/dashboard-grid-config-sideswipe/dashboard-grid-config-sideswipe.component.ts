@@ -3,8 +3,10 @@ import {
   ElementRef,
   EventEmitter,
   HostListener,
+  Input,
   Output,
 } from '@angular/core';
+import { ClientDashboardItem } from 'src/app/core/types/client-dashboard-item.type';
 
 @Component({
   selector: 'app-dashboard-grid-config-sideswipe',
@@ -12,6 +14,8 @@ import {
   styleUrls: ['./dashboard-grid-config-sideswipe.component.scss'],
 })
 export class DashboardGridConfigSideswipeComponent {
+  @Input() items: ClientDashboardItem[] = [];
+  @Output() dropdownSelectionEvent = new EventEmitter<ClientDashboardItem>();
   @Output() toggleDraggabilityEvent = new EventEmitter();
   @Output() shuffleEvent = new EventEmitter();
 

@@ -3,7 +3,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DialogsModule } from '@progress/kendo-angular-dialog';
 import { LayoutModule } from '@progress/kendo-angular-layout';
+import { TooltipModule, TooltipsModule } from '@progress/kendo-angular-tooltip';
 import { NgChartsModule } from 'ng2-charts';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -23,11 +25,15 @@ import { DragDropGridCheckboxDropdownComponent } from './shared/drag-n-drop/drag
 import { DragDropGridComponent } from './shared/drag-n-drop/drag-drop-grid/drag-drop-grid.component';
 import { DropzoneContainerComponent } from './shared/drag-n-drop/photos/dropzone-container/dropzone-container.component';
 import { SidebarContainerComponent } from './shared/drag-n-drop/photos/sidebar-container/sidebar-container.component';
+import { AccountInfoComponent } from './shared/util/account-info/account-info.component';
+import { AlertIconComponent } from './shared/util/alert-icon/alert-icon.component';
+import { DashboardGridConfigSideswipeComponent } from './shared/util/dashboard-grid-config-sideswipe/dashboard-grid-config-sideswipe.component';
+import { HeaderComponent } from './shared/util/header/header.component';
 import { NavTileComponent } from './shared/util/nav-tile/nav-tile.component';
 import { NowaccountShellComponent } from './shared/util/nowaccount-shell/nowaccount-shell.component';
 import { NowaccountSidenavComponent } from './shared/util/nowaccount-sidenav/nowaccount-sidenav.component';
-import { HeaderComponent } from './shared/util/header/header.component';
-import { DashboardGridConfigSideswipeComponent } from './shared/util/dashboard-grid-config-sideswipe/dashboard-grid-config-sideswipe.component';
+import { RemittanceComponent } from './shared/util/remittance/remittance.component';
+import { GraphDialogComponent } from './shared/util/graph-dialog/graph-dialog.component';
 
 const components = [
   AppComponent,
@@ -50,6 +56,11 @@ const components = [
   NavTileComponent,
   NowaccountShellComponent,
   NowaccountSidenavComponent,
+  HeaderComponent,
+  DashboardGridConfigSideswipeComponent,
+  AccountInfoComponent,
+  RemittanceComponent,
+  AlertIconComponent,
 ];
 const modules = [
   BrowserModule,
@@ -59,10 +70,13 @@ const modules = [
   DragDropModule,
   AppRoutingModule,
   LayoutModule,
+  TooltipModule,
+  TooltipsModule,
+  DialogsModule,
 ];
 
 @NgModule({
-  declarations: [...components, HeaderComponent, DashboardGridConfigSideswipeComponent],
+  declarations: [...components, GraphDialogComponent],
   imports: [...modules],
   providers: [...components, ...modules],
   bootstrap: [AppComponent],

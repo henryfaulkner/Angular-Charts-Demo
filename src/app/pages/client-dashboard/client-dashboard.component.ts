@@ -25,7 +25,7 @@ export class ClientDashboardComponent implements OnInit {
       selected: true,
       expanded: false,
       handleExpandSelection: () => {},
-      displayType: 'main'
+      displayType: 'main',
     });
 
     this.items.push({
@@ -36,7 +36,7 @@ export class ClientDashboardComponent implements OnInit {
       selected: true,
       expanded: false,
       handleExpandSelection: () => {},
-      displayType: 'main'
+      displayType: 'main',
     });
 
     this.items.push({
@@ -47,7 +47,7 @@ export class ClientDashboardComponent implements OnInit {
       selected: true,
       expanded: false,
       handleExpandSelection: () => {},
-      displayType: 'main'
+      displayType: 'main',
     });
 
     this.items.push({
@@ -58,7 +58,7 @@ export class ClientDashboardComponent implements OnInit {
       selected: true,
       expanded: false,
       handleExpandSelection: () => {},
-      displayType: 'main'
+      displayType: 'main',
     });
 
     this.items.push({
@@ -69,7 +69,7 @@ export class ClientDashboardComponent implements OnInit {
       selected: true,
       expanded: false,
       handleExpandSelection: () => {},
-      displayType: 'main'
+      displayType: 'main',
     });
   }
 }

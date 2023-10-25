@@ -1,18 +1,37 @@
 <!-- dashboard-grid-config-sideswipe component -->
-<div class="sideswipe {{this.isSideswipeOpen ? 'open' : 'close'}}">
-    <div class="label" 
-        (click)="this.openSideswipe()" 
-        (keydown.enter)="this.openSideswipe()" 
-        (keydown.Space)="this.openSideswipe()" 
-        tabindex="3"
-        style="cursor: pointer;"
-    >
-        <span>Config</span>
+<div class="dashboard-grid-config-sideswipe sideswipe {{this.isSideswipeOpen ? 'show' : 'hide'}}">
+    <div class="label-container">
+        <div class="label {{this.isSideswipeOpen ? 'show' : 'hide'}}" 
+            (click)="this.openSideswipe()" 
+            (keydown.enter)="this.openSideswipe()" 
+            (keydown.Space)="this.openSideswipe()" 
+            tabindex="3"
+            style="cursor: pointer;"
+        >
+            <span>Personalize</span>
+        </div>
     </div>
-    <div class="controls">
-        <button (click)="shuffle()">Shuffle</button>
-        <!-- <app-drag-drop-grid-checkbox-dropdown [items]="items" (outputParameter)="handleDropdownSelection($event)"></app-drag-drop-grid-checkbox-dropdown> -->
-        <button (click)="toggleDraggability()">Toggle draggability</button>
-        <br/>
+    
+    <div 
+        class="controls-container {{this.isSideswipeOpen ? 'show' : 'hide'}}"
+        #tooltipContainer
+    >
+        <div class="cross">
+            <a 
+                (click)="this.closeSideswipe()" 
+                (keydown.enter)="this.closeSideswipe()" 
+                (keydown.Space)="this.closeSideswipe()"
+                tabindex="{{this.isSideswipeOpen ? '0' : '-1'}}"
+            >
+                X
+            </a>
+        </div>
+        <div class="controls">
+            <h2>Graph Controls</h2>
+            <div id="toggle-drag" style="display: flex;"><input type="checkbox" (click)="toggleDraggability()"/><span>Toggle draggability</span></div>
+            <button>Reset to Default</button>
+            <app-drag-drop-grid-checkbox-dropdown [items]="items" (dropdownSelectionEvent)="dropdownSelectionEvent"></app-drag-drop-grid-checkbox-dropdown>
+            <br/>
+        </div>
     </div>
 </div>

@@ -1,14 +1,12 @@
 <div class="nowaccount-shell">
-    <app-nowaccount-sidenav #sidenav>
-        <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events -->
-        <div class="shell-container" #container>
-            <div class="content" #content>
-                <app-header></app-header>
-                <!-- ADD ALERT -->
+    <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events -->
+    <div class="shell-container" #container>
+        <div class="content" #content>
+            <app-header></app-header>
+            <!-- ADD ALERT -->
 
-                <!-- TRANSCLUSION -->
-                <ng-content></ng-content>
-            </div>
+            <!-- TRANSCLUSION -->
+            <ng-content></ng-content>
         </div>
-    </app-nowaccount-sidenav>
+    </div>
 </div>

@@ -1,4 +1,15 @@
-<div class="nav-tile {{tileStyle}}" (click)="onClick()">
-    <h2 class="header">{{headerText}}</h2>
-    <ng-content class="subheader-content"></ng-content>
+<div class="nav-tile center">
+    <div class="card" (click)="onCardClick()">
+        <app-alert-icon [alert]="alert"></app-alert-icon>
+        <h2 class="header blur {{displayType === 'main' || !hasAltContent ? 'show' : 'hide'}}">{{headerText}}</h2>
+        <div class="alt-container translate-blur-wrapper">
+            <div #altContent class="translate-blur {{displayType === 'alt' && hasAltContent ? 'show' : 'hide'}}">
+                <ng-content class="alt-content"></ng-content>
+            </div>
+        </div>
+    </div>
+    
+    <div class="alt-button" (click)="onAltClick()" *ngIf="hasAltContent">
+        <span>Quick Add</span>
+    </div>
 </div>

@@ -1,5 +1,7 @@
 <div class="client-dashboard-drag-drop-grid">
     <app-dashboard-grid-config-sideswipe
+        [items]="items"
+        (dropdownSelectionEvent)="handleDropdownSelection($event)"
         (toggleDraggabilityEvent)="toggleDraggability()"
         (shuffleEvent)="shuffle()"
     ></app-dashboard-grid-config-sideswipe>
@@ -40,8 +42,8 @@
                                 *ngIf="item.type === graphTypesEnum.CUSTOMER_PORTFOLIO_PORTIONS"></app-customer-portfolio-portions-graph>
                         </div>
                     </div>
-                    <div class="alt-container {{item.displayType === 'alt' ? 'show' : 'hide'}}">
-                        <div class="alt-content">
+                    <div class="alt-container translate-blur-wrapper">
+                        <div class="translate-blur {{item.displayType === 'alt' ? 'show' : 'hide'}}">
                             <h3>alt content</h3>
                         </div>
                     </div>

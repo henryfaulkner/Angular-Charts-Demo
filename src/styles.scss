@@ -1,4 +1,5 @@
 @import "./assets/styles/utility/utility";
+@import "./assets/styles/component-globals/nav-tile";
 
 .cdk-drag-placeholder {
     opacity: 0.2;
@@ -18,4 +19,5 @@
 
 .base-html {
     background-color: $soft-white;
+    overflow-x: hidden;
 }

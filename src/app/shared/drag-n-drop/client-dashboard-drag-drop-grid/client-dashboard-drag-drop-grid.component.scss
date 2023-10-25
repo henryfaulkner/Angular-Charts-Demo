@@ -20,24 +20,22 @@
 }
 
 .wrapper-box {
-  width: 27vw;
-  height: 450px;
+  width: 24vw;
+  height: 350px;
   padding: 30px;
-  border: solid 1px #ccc;
+  border: 10px solid $now-green-secondary;
   font-size: 30pt;
   font-weight: bold;
   color: rgba(0, 0, 0, 0.87);
-  background-color: $now-green-secondary;
   border-radius: 4px;
   position: relative;
   z-index: 1;
   border-radius: 15px;
   transition: box-shadow 200ms cubic-bezier(0, 0, 0.2, 1);
-  // box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2),
-  // 0 2px 2px 0 rgba(0, 0, 0, 0.14),
-  // 0 1px 5px 0 rgba(0, 0, 0, 0.12);
   display: flex;
   flex-direction: column;
+
+  @include white-to-orange-thin-linear-gradient;
 
   &.expanded {
     width: 40vw;
@@ -50,14 +48,15 @@
     text-align: center;
     text-wrap: balance;
   }
+
+  @media (max-width: $tablet-breakpoint) {
+    width: 20vw;
+  }
 }
 
 .wrapper-box:active {
   border-radius: 15px;
   background-color: $now-green-secondary;
-  // box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
-  // 0 8px 10px 1px rgba(0, 0, 0, 0.14),
-  // 0 3px 14px 2px rgba(0, 0, 0, 0.12);
   opacity: .6;
 }
 
@@ -71,9 +70,6 @@
   box-sizing: border-box;
   background-color: $now-green-secondary;
   border-radius: 15px;
-  // box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
-  // 0 8px 10px 1px rgba(0, 0, 0, 0.14),
-  // 0 3px 14px 2px rgba(0, 0, 0, 0.12);
 }
 
 .cdk-drag-placeholder {
@@ -129,6 +125,15 @@
 
 .cdk-drop-list-dragging {
   cursor: grabbing !important;
+  > .cdk-drag {
+    outline: auto;
+    outline-color: $now-green-primary;
+  }
+}
+
+.cdk-drag-preview {
+  outline: auto !important;
+  outline-color: $now-green-primary !important;
 }
 
 .cdk-drop-list-receiving {
@@ -144,6 +149,7 @@
 }
 
 .graph-title, .alt-title {
+  font-size: 24px;
   color: $now-green-primary;
   font-family: sans-serif;
 }
@@ -184,32 +190,16 @@
   }
 }
 
-.alt-container {
+.translate-blur-wrapper {
   position: absolute;
+  left: 0;
+  top: 0;
 
-  &.hide {
-    .alt-content {
-      opacity: 0;
-      filter: blur(5px);
-      transform: translateY(0);
-      transition: all;
-    }
+  & {
+    overflow: hidden;
   }
 
-  &.show {
-    .alt-content {
-      opacity: 1;
-      filter: blur(0);
-      transform: translateY(75%);
-      transition: all 1s;
-    }
-  }
-
-  @media (prefers-reduced-motion) {
-    &.hide {
-      .alt-content {
-        transition: none;
-      }
-    }
+  .translate-blur {
+    @include hide-show-blur-translate(5px, 0, 0, 0, 50px);
   }
 }

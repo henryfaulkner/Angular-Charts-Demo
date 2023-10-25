@@ -1,14 +1,16 @@
 @mixin hide-show-blur($blur: 5px, $transition-time: 1s) {
     &.hide {
+        visibility: hidden;
         opacity: 0;
         filter: blur($blur);
-        transition: all $transition-time;
+        transition: all;
     }
 
     &.show {
+        visibility: visible;
         opacity: 1;
         filter: blur(0);
-        transition: all $transition-time;
+        transition: visibility 0s, opacity $transition-time;
     }
 }
 
@@ -45,6 +47,22 @@
     }
 }
 
+@mixin hide-show-blur-translate-wrapper() {
+    & {
+        overflow: hidden;
+    }
+
+    &.hide {
+        visibility: hidden;
+        transition: visibility 0s;
+    }
+
+    &.show {
+        visibility: visible;
+        transition: visibility 0s;
+    }
+}
+
 @mixin hide-show-blur-translate(
     $blur: 5px, 
     $start-translate-x: 0, 
@@ -63,6 +81,7 @@
     }
 
     &.hide {
+        visibility: hidden;
         opacity: 0;
         filter: blur($blur);
         transform: translate($start-translate-x, $start-translate-y);
@@ -70,10 +89,16 @@
     }
 
     &.show {
+        & {
+            visibility: visible;
+            transition: visibility 0s;
+        }
+
+        visibility: visible;
         opacity: 1;
         filter: blur(0);
         transform: translate($end-translate-x, $end-translate-y);
-        transition: all $transition-time;
+        transition: visibility 0s, opacity $transition-time, transform $transition-time;
     }
 
     @media (prefers-reduced-motion) {

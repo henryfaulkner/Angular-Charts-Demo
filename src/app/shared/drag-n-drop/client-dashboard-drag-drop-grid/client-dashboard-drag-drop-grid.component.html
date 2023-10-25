@@ -42,7 +42,7 @@
                                 *ngIf="item.type === graphTypesEnum.CUSTOMER_PORTFOLIO_PORTIONS"></app-customer-portfolio-portions-graph>
                         </div>
                     </div>
-                    <div class="alt-container translate-blur-wrapper">
+                    <div class="alt-container translate-blur-wrapper {{item.displayType === 'alt' ? 'show' : 'hide'}}">
                         <div class="translate-blur {{item.displayType === 'alt' ? 'show' : 'hide'}}">
                             <h3>alt content</h3>
                         </div>

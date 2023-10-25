@@ -2,7 +2,7 @@
     <div class="card" (click)="onCardClick()">
         <app-alert-icon [alert]="alert"></app-alert-icon>
         <h2 class="header blur {{displayType === 'main' || !hasAltContent ? 'show' : 'hide'}}">{{headerText}}</h2>
-        <div class="alt-container translate-blur-wrapper">
+        <div class="alt-container translate-blur-wrapper {{displayType === 'alt' && hasAltContent ? 'show' : 'hide'}}">
             <div #altContent class="translate-blur {{displayType === 'alt' && hasAltContent ? 'show' : 'hide'}}">
                 <ng-content class="alt-content"></ng-content>
             </div>

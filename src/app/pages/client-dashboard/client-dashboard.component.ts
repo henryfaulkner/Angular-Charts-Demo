@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ClientDashboardGraphTypes } from 'src/app/core/enum/client-dashboard-graph-types.enum';
 import { ClientDashboardItem } from 'src/app/core/types/client-dashboard-item.type';
+import {cloneDeep} from 'lodash';
 
 @Component({
   selector: 'app-client-dashboard',
@@ -9,6 +10,7 @@ import { ClientDashboardItem } from 'src/app/core/types/client-dashboard-item.ty
 })
 export class ClientDashboardComponent implements OnInit {
   items: ClientDashboardItem[] = [];
+  defaultItems: ClientDashboardItem[] = [];
 
   constructor() {}
 
@@ -71,5 +73,7 @@ export class ClientDashboardComponent implements OnInit {
       handleExpandSelection: () => {},
       displayType: 'main',
     });
+
+    this.defaultItems = cloneDeep(this.items);
   }
 }

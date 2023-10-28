@@ -18,6 +18,7 @@ import { ClientDashboardItem } from 'src/app/core/types/client-dashboard-item.ty
 export class ClientDashboardDragDropGridComponent {
   // Variables for charting
   @Input() items: ClientDashboardItem[] = [];
+  @Input() defaultItems: ClientDashboardItem[] = [];
   graphTypesEnum = ClientDashboardGraphTypes;
 
   @ViewChild('flexWrap', { static: true }) flexWrap: ElementRef;

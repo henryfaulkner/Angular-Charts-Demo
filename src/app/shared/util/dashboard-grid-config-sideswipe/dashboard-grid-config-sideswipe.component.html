@@ -28,9 +28,28 @@
         </div>
         <div class="controls">
             <h2>Graph Controls</h2>
-            <div id="toggle-drag" style="display: flex;"><input type="checkbox" (click)="toggleDraggability()"/><span>Toggle draggability</span></div>
-            <button>Reset to Default</button>
-            <app-drag-drop-grid-checkbox-dropdown [items]="items" (dropdownSelectionEvent)="dropdownSelectionEvent"></app-drag-drop-grid-checkbox-dropdown>
+            <!-- <div id="toggle-drag" style="display: flex;"><input type="checkbox" (click)="toggleDraggability()"/><span>Toggle draggability</span></div> -->
+            <button (click)="resetToDefault()">Reset to Default</button>
+            <div class="tile-toggle-list"
+                *ngFor="let item of items; let i = index">
+                <div class="tile-toggle-row">
+                    <input 
+                        type="checkbox" 
+                        #checkbox 
+                        kendoCheckBox 
+                        size="large"
+                        rounded="large"
+                        (change)="handleTileSelection(item)" 
+                        [checked]="item.selected"    
+                    />
+                    <kendo-label
+                        class="k-checkbox-label"
+                        [for]="checkbox"
+                        [text]="item.title"
+                        style="cursor: pointer;"
+                    ></kendo-label>
+                </div>
+            </div>
             <br/>
         </div>
     </div>

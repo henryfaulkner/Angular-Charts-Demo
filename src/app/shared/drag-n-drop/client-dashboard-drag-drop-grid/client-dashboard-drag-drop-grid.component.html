@@ -1,6 +1,7 @@
 <div class="client-dashboard-drag-drop-grid">
     <app-dashboard-grid-config-sideswipe
         [items]="items"
+        [defaultItems]="defaultItems"
         (dropdownSelectionEvent)="handleDropdownSelection($event)"
         (toggleDraggabilityEvent)="toggleDraggability()"
         (shuffleEvent)="shuffle()"

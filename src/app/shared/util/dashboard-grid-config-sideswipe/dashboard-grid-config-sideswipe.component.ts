@@ -20,7 +20,7 @@ import { cloneDeep } from 'lodash';
 })
 export class DashboardGridConfigSideswipeComponent implements OnInit {
   @Input() items: ClientDashboardItem[] = [];
-  @Input() defaultItems: ClientDashboardItem[] = [];
+  defaultItems: ClientDashboardItem[] = [];
   @Output() dropdownSelectionEvent = new EventEmitter<ClientDashboardItem>();
   @Output() toggleDraggabilityEvent = new EventEmitter();
   @Output() shuffleEvent = new EventEmitter();
@@ -31,6 +31,8 @@ export class DashboardGridConfigSideswipeComponent implements OnInit {
   constructor(private elementRef: ElementRef, private changeDetectorRef: ChangeDetectorRef) {}
 
   ngOnInit(): void {
+    // In real implementation receive the default list from server-side call
+    this.defaultItems = cloneDeep(this.items);
   }
 
   @HostListener('document:click', ['$event'])

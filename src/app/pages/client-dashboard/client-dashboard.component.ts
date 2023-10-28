@@ -10,7 +10,6 @@ import {cloneDeep} from 'lodash';
 })
 export class ClientDashboardComponent implements OnInit {
   items: ClientDashboardItem[] = [];
-  defaultItems: ClientDashboardItem[] = [];
 
   constructor() {}
 
@@ -73,7 +72,5 @@ export class ClientDashboardComponent implements OnInit {
       handleExpandSelection: () => {},
       displayType: 'main',
     });
-
-    this.defaultItems = cloneDeep(this.items);
   }
 }

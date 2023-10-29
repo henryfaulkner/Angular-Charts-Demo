@@ -21,6 +21,31 @@
             <!-- <app-account-info></app-account-info> -->
         </div>
 
-        <app-client-dashboard-drag-drop-grid [items]="items"></app-client-dashboard-drag-drop-grid>
+        <app-client-dashboard-drag-drop-grid [items]="items" (dialogSelectEvent)="dialogSelectEventListener($event)"></app-client-dashboard-drag-drop-grid>
+
+        <app-graph-dialog *ngIf="dialogSelectedItem">
+            <div #dialog class="dialog-container {{dialogSelectedItem.displayType === 'main' ? 'show' : 'hide'}}">
+                <h5 class="dialog-title">{{dialogSelectedItem.title}}</h5>
+                <div class="dialog-content">
+                    <app-flagged-invoice-count-graph class="graph"
+                        [item]="dialogSelectedItem"
+                        *ngIf="dialogSelectedItem.type === graphTypesEnum.FLAGGED_INVOICE_COUNT"></app-flagged-invoice-count-graph>
+                    <app-nowaccount-difference-graph class="graph"
+                        [item]="dialogSelectedItem"
+                        *ngIf="dialogSelectedItem.type === graphTypesEnum.NOWACCOUNT_DIFFERENCE"></app-nowaccount-difference-graph>
+                    <app-credit-request-utilization class="graph"
+                        [item]="dialogSelectedItem"
+                        *ngIf="dialogSelectedItem.type === graphTypesEnum.CREDIT_REQUEST_UTILIZATION"></app-credit-request-utilization>
+                    <app-client-capacity-utilization-graph class="graph"
+                        [item]="dialogSelectedItem"
+                        *ngIf="dialogSelectedItem.type === graphTypesEnum.CLIENT_CAPACITY_UTILIZATION"></app-client-capacity-utilization-graph>
+                    <app-customer-portfolio-portions-graph class="graph"
+                        [item]="dialogSelectedItem"
+                        *ngIf="dialogSelectedItem.type === graphTypesEnum.CUSTOMER_PORTFOLIO_PORTIONS"
+                        [isDialog]="true"    
+                    ></app-customer-portfolio-portions-graph>
+                </div>
+            </div>
+        </app-graph-dialog>
     </app-nowaccount-shell>
 </div>

@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { ClientDashboardGraphTypes } from 'src/app/core/enum/client-dashboard-graph-types.enum';
 import { ClientDashboardItem } from 'src/app/core/types/client-dashboard-item.type';
 
@@ -9,8 +15,9 @@ import { ClientDashboardItem } from 'src/app/core/types/client-dashboard-item.ty
 })
 export class ClientDashboardComponent implements OnInit {
   items: ClientDashboardItem[] = [];
-
-  constructor() {}
+  graphTypesEnum = ClientDashboardGraphTypes;
+  dialogSelectedItem: ClientDashboardItem | null = null;
+  @ViewChild('dialog') dialogElementRef: ElementRef;
 
   ngOnInit(): void {
     this.populateClientDashboardItems();
@@ -71,5 +78,22 @@ export class ClientDashboardComponent implements OnInit {
       handleExpandSelection: () => {},
       displayType: 'main',
     });
+  }
+
+  dialogSelectEventListener(item: ClientDashboardItem) {
+    console.log('dialogSelectEventListener');
+    this.dialogSelectedItem = item;
+  }
+
+  @HostListener('document:click', ['$event'])
+  onClick(event: MouseEvent) {
+    console.log('mouse click');
+    if (!this.dialogElementRef) return;
+    // Check if the click target is outside the component
+    const isClickedOutside = !this.dialogElementRef.nativeElement.contains(
+      event.target
+    );
+    console.log('isClickedOutside, ', isClickedOutside);
+    if (isClickedOutside) this.dialogSelectedItem = null;
   }
 }

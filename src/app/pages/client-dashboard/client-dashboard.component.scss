@@ -9,3 +9,13 @@
         margin: 0 10px;
     }
 }
+
+.dialog-container {
+    width: 80vw;
+    height: 85vh;
+
+    .dialog-content {
+        height: 80%;
+        padding: 50px;
+    }
+}

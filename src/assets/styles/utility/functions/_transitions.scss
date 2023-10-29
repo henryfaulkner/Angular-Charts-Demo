@@ -85,15 +85,10 @@
         opacity: 0;
         filter: blur($blur);
         transform: translate($start-translate-x, $start-translate-y);
-        transition: all;
+        transition: opacity 0s, transform 0s;
     }
 
     &.show {
-        & {
-            visibility: visible;
-            transition: visibility 0s;
-        }
-
         visibility: visible;
         opacity: 1;
         filter: blur(0);

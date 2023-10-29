@@ -90,10 +90,20 @@
   height: 24px;
 }
 
-.swap-content-icon {
+.dialog-icon {
   position: absolute;
   top: 5px;
   left: 40px;
+  color: $now-orange;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+}
+
+.swap-content-icon {
+  position: absolute;
+  top: 5px;
+  right: 40px;
   color: $now-orange;
   cursor: pointer;
   width: 24px;
@@ -156,6 +166,10 @@
 
 .graph-container {
   height: 100%;
+
+  .graph-title {
+    padding: 0 25px;
+  }
 
   .graph-content {
     height: 80%;

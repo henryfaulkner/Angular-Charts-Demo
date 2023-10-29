@@ -11,8 +11,6 @@ export class AlertIconComponent implements OnInit {
   message = '';
 
   ngOnInit(): void {
-    console.log('alert, ', this.alert);
     this.alert.messages.forEach((str: string) => (this.message += `${str}\n`));
-    console.log('message, ', this.message);
   }
 }

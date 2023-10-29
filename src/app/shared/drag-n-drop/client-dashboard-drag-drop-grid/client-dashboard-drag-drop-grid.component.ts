@@ -6,7 +6,14 @@ import {
   DragRef,
   moveItemInArray,
 } from '@angular/cdk/drag-drop';
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { ClientDashboardGraphTypes } from 'src/app/core/enum/client-dashboard-graph-types.enum';
 import { ClientDashboardItem } from 'src/app/core/types/client-dashboard-item.type';
 
@@ -19,6 +26,7 @@ export class ClientDashboardDragDropGridComponent {
   // Variables for charting
   @Input() items: ClientDashboardItem[] = [];
   graphTypesEnum = ClientDashboardGraphTypes;
+  @Output() dialogSelectEvent = new EventEmitter<ClientDashboardItem>();
 
   @ViewChild('flexWrap', { static: true }) flexWrap: ElementRef;
   @ViewChild('flexWrapChild', { static: true }) flexWrapChild: ElementRef;
@@ -81,6 +89,13 @@ export class ClientDashboardDragDropGridComponent {
 
   toggleDraggability() {
     this.isDraggable = !this.isDraggable;
+  }
+
+  handleDialogSelection(item: ClientDashboardItem) {
+    console.log('dilog');
+    setTimeout(() => {
+      this.dialogSelectEvent.emit(item);
+    }, 300);
   }
 
   //#endregion

@@ -84,12 +84,18 @@ h4 {
     .controls {
       height: inherit;
       padding: 0 5px;
-      margin: 50px 50px;
+      margin: 8px 0px;
       display: flex;
       flex-direction: column;
 
       p {
         font-size: $font-size-small;
+      }
+
+      .tile-toggle-list {
+        .tile-toggle-row {
+          padding-top: 1rem;
+        }
       }
     }
   }

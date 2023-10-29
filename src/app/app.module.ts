@@ -34,6 +34,8 @@ import { NowaccountShellComponent } from './shared/util/nowaccount-shell/nowacco
 import { NowaccountSidenavComponent } from './shared/util/nowaccount-sidenav/nowaccount-sidenav.component';
 import { RemittanceComponent } from './shared/util/remittance/remittance.component';
 import { GraphDialogComponent } from './shared/util/graph-dialog/graph-dialog.component';
+import { InputsModule } from '@progress/kendo-angular-inputs';
+import { LabelModule } from '@progress/kendo-angular-label';
 
 const components = [
   AppComponent,
@@ -61,6 +63,7 @@ const components = [
   AccountInfoComponent,
   RemittanceComponent,
   AlertIconComponent,
+  GraphDialogComponent
 ];
 const modules = [
   BrowserModule,
@@ -73,10 +76,12 @@ const modules = [
   TooltipModule,
   TooltipsModule,
   DialogsModule,
+  InputsModule,
+  LabelModule
 ];
 
 @NgModule({
-  declarations: [...components, GraphDialogComponent],
+  declarations: [...components],
   imports: [...modules],
   providers: [...components, ...modules],
   bootstrap: [AppComponent],

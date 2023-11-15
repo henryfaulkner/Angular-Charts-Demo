@@ -36,6 +36,7 @@ import { RemittanceComponent } from './shared/util/remittance/remittance.compone
 import { GraphDialogComponent } from './shared/util/graph-dialog/graph-dialog.component';
 import { InputsModule } from '@progress/kendo-angular-inputs';
 import { LabelModule } from '@progress/kendo-angular-label';
+import { ShimmerLoaderComponent } from './shared/util/shimmer-loader/shimmer-loader.component';
 
 const components = [
   AppComponent,
@@ -81,7 +82,7 @@ const modules = [
 ];
 
 @NgModule({
-  declarations: [...components],
+  declarations: [...components, ShimmerLoaderComponent],
   imports: [...modules],
   providers: [...components, ...modules],
   bootstrap: [AppComponent],
